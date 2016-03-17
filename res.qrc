@@ -1,7 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>qml/main.qml</file>
+        <file>qml/makePicture.qml</file>
     </qresource>
 </RCC>
-
-

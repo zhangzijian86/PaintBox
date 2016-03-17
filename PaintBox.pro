@@ -54,7 +54,8 @@ INSTALLS += target res meta syber
 
 QML_FILES = qml/*.qml
 
-OTHER_FILES += $$QML_FILES *.qm
+OTHER_FILES += $$QML_FILES *.qm \
+    qml/makePicture.qml
                
 
 
