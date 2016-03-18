@@ -8,10 +8,10 @@ Rectangle {
         anchors.fill: parent
         color: "red"
     }
-//    CButton{
-//        text:"qihuandao--my"
-//        onClicked:{
-//            mainPage.changePage("myPicture.qml");
-//        }
-//    }
+    CButton{
+        text:"qihuandao--my"
+        onClicked:{
+            mainPage.changePage("myPicture.qml");
+        }
+    }
 }

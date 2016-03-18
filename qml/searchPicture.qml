@@ -6,12 +6,12 @@ Rectangle {
     height: 500
     Rectangle{
         anchors.fill: parent
-        color: "red"
+        color: "green"
     }
 //    CButton{
-//        text:"qihuandao--my"
+//        text:"qihuandao--make"
 //        onClicked:{
-//            mainPage.changePage("myPicture.qml");
+//            mainPage.pageStack.push("qrc:/qml/makeStaticPicture.qml");
 //        }
 //    }
 }

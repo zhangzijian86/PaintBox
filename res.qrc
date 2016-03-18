@@ -2,5 +2,17 @@
     <qresource prefix="/">
         <file>qml/main.qml</file>
         <file>qml/makePicture.qml</file>
+        <file>qml/myPicture.qml</file>
+        <file>qml/searchPicture.qml</file>
+        <file>qml/makeDynamicPicture.qml</file>
+        <file>qml/makeStaticPicture.qml</file>
+        <file>res/makeOff.png</file>
+        <file>res/makeOn.png</file>
+        <file>res/myOff.png</file>
+        <file>res/myOn.png</file>
+        <file>res/PaintBox.png</file>
+        <file>res/refresh.png</file>
+        <file>res/searchOff.png</file>
+        <file>res/searchOn.png</file>
     </qresource>
 </RCC>
