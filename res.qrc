@@ -14,5 +14,8 @@
         <file>res/refresh.png</file>
         <file>res/searchOff.png</file>
         <file>res/searchOn.png</file>
+        <file>res/animationImage.png</file>
+        <file>res/dynamicImage.png</file>
+        <file>res/staticImage.png</file>
     </qresource>
 </RCC>

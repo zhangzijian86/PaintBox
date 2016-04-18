@@ -15,7 +15,7 @@ CPageStackWindow {
             width: parent.width
             height: parent.height/10
             anchors.top: parent.top
-            color: "#ffd306"
+            color: "#FEE680"
         }
 
         Rectangle{
@@ -24,11 +24,11 @@ CPageStackWindow {
             width: parent.width
             height: parent.height/10
             anchors.bottom: parent.bottom
-            color: "#f3f3f3"
+            color: "#ffffff"
             Rectangle{
                 width: parent.height-parent.height/4
                 height: parent.height
-                color: "#f3f3f3"
+                color: "#ffffff"
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
                 anchors.left: parent.left
@@ -52,15 +52,16 @@ CPageStackWindow {
             Rectangle{
                 width: parent.height-parent.height/4
                 height: parent.height
-                color: "#f3f3f3"
+                color: "#ffffff"
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
                 anchors.horizontalCenter: parent.horizontalCenter
                 Image {
                     id: makePageImage
-                    height: parent.height-parent.height/6
+                    width: parent.width+parent.height/10
+                    height: parent.height-parent.height/10
                     anchors.bottom: parent.bottom
-                    anchors.bottomMargin: parent.height/4
+                    anchors.bottomMargin: parent.height/6
                     anchors.horizontalCenter: parent.horizontalCenter
                     source: "qrc:/res/makeOff.png"
                 }
@@ -74,7 +75,7 @@ CPageStackWindow {
             Rectangle{
                 width: parent.height-parent.height/4
                 height: parent.height
-                color: "#f3f3f3"
+                color: "#ffffff"
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
                 anchors.right: parent.right
