@@ -1,10 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>qml/main.qml</file>
-        <file>qml/makePicture.qml</file>
-        <file>qml/myPicture.qml</file>
-        <file>qml/searchPicture.qml</file>
-        <file>qml/makeDynamicPicture.qml</file>
         <file>res/makeOff.png</file>
         <file>res/makeOn.png</file>
         <file>res/myOff.png</file>
@@ -25,6 +20,12 @@
         <file>res/expression-6.png</file>
         <file>res/expression-7.png</file>
         <file>res/expression-8.png</file>
-        <file>qml/StaticPicture/makeStaticPicture.qml</file>
+        <file>qml/MakeDynamicPicture.qml</file>
+        <file>qml/MakePicture.qml</file>
+        <file>qml/MyPicture.qml</file>
+        <file>qml/SearchPicture.qml</file>
+        <file>qml/StaticPicture/MakeStaticPicture.qml</file>
+        <file>qml/StaticPicture/ChieldObject.qml</file>
+        <file>qml/main.qml</file>
     </qresource>
 </RCC>

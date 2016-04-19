@@ -1,13 +1,16 @@
 import QtQuick 2.0
 import com.syberos.basewidgets 2.0
+import "./"
 
 Rectangle {
     id:makeStaticPicture
     anchors.fill: parent
+    property int flag:0
     property int xflag:10
     property int yflag:10
     property int zflag:10
     property string imageUrl:""
+    property alias  canvasObject :canvas
     color: "#ffffff"
     Rectangle{
         id:title
@@ -53,42 +56,6 @@ Rectangle {
         height:parent.height*8/14
         width:parent.width
         color: "#ffffff"
-        ListView{
-            anchors.top:parent.top
-            anchors.topMargin: 5
-            anchors.left: parent.left
-            anchors.leftMargin: 3
-            anchors.right: parent.right
-            anchors.rightMargin: 3
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: 5
-            orientation: ListView.Horizontal
-            model:canvasModel
-            delegate: canvasDelegate
-        }
-    }
-
-    ListModel {
-        id:canvasModel
-        ListElement {
-            image:""
-            xValue:0
-            yValue:0
-            zValue:0
-        }
-    }
-    Component {
-        id:canvasDelegate
-        Image{
-            id:canvasImage
-            x:xValue
-            y:yValue
-            z:zValue
-            height: parent.height
-            width:expression.width/4
-            source:image
-            anchors.verticalCenter: parent.verticalCenter
-        }
     }
 
     Rectangle{
@@ -99,6 +66,7 @@ Rectangle {
         width:parent.width
         color: "blue"
     }
+
     Rectangle{
         id:type
         anchors.top: operation.bottom
@@ -107,6 +75,7 @@ Rectangle {
         width:parent.width
         color: "red"
     }
+
     Rectangle{
         id:expression
         anchors.top: type.bottom
@@ -129,6 +98,7 @@ Rectangle {
             delegate: expressionDelegate
         }
     }
+
     ListModel {
         id:expressionModel
         ListElement {
@@ -147,10 +117,23 @@ Rectangle {
                 anchors.fill: parent
                 onClicked: {
                     imageUrl = expressionImage.source;
-                    canvasModel.append({image:imageUrl,xValue:xflag,yValue:yflag,zValue:zflag});
-                    xflag = xflag+10;
-                    yflag = yflag+15;
-                    zflag = yflag+20;
+
+//                    var imageObj = Qt.createQmlObject(
+//                      'import QtQuick 2.0;
+//                       ChieldObject {}', canvasObject);
+
+                    var imageObj = Qt.createQmlObject(
+                      'import QtQuick 2.0;
+                       Image {
+                           source: "'+imageUrl+'";
+                           width: '+expressionImage.width+';
+                           height: '+expressionImage.height+';
+                           anchors.left: parent.left
+                           anchors.leftMargin:  '+flag+'
+                           anchors.verticalCenter: parent.verticalCenter
+                       }', canvasObject);
+
+                    flag = flag+100;
                 }
             }
         }
@@ -165,10 +148,5 @@ Rectangle {
         expressionModel.append({image:"qrc:/res/expression-6.png"});
         expressionModel.append({image:"qrc:/res/expression-7.png"});
         expressionModel.append({image:"qrc:/res/expression-8.png"});
-        canvasModel.clear();
-//        canvasModel.append({image:"qrc:/res/expression-5.png"});
-//        canvasModel.append({image:"qrc:/res/expression-6.png"});
-//        canvasModel.append({image:"qrc:/res/expression-7.png"});
-//        canvasModel.append({image:"qrc:/res/expression-8.png"});
     }
 }

@@ -45,7 +45,7 @@ CPageStackWindow {
                 MouseArea{
                     anchors.fill: parent
                     onClicked: {
-                        mainPage.changePage("searchPicture.qml");
+                        mainPage.changePage("SearchPicture.qml");
                     }
                 }
             }
@@ -68,7 +68,7 @@ CPageStackWindow {
                 MouseArea{
                     anchors.fill: parent
                     onClicked: {
-                        mainPage.changePage("makePicture.qml");
+                        mainPage.changePage("MakePicture.qml");
                     }
                 }
             }
@@ -92,14 +92,14 @@ CPageStackWindow {
                 MouseArea{
                     anchors.fill: parent
                     onClicked: {
-                        mainPage.changePage("myPicture.qml");
+                        mainPage.changePage("MyPicture.qml");
                     }
                 }
             }
         }
 
         Component.onCompleted: {
-            var com = Qt.createComponent("qrc:/qml/searchPicture.qml");
+            var com = Qt.createComponent("qrc:/qml/SearchPicture.qml");
             if(com.status == Component.Ready){
                 mainPage.content = com.createObject(mainPage);
                 mainPage.content.anchors.top =  top.bottom;
@@ -121,15 +121,15 @@ CPageStackWindow {
                 mainPage.content.anchors.left = mainPage.left;
                 mainPage.content.anchors.right = mainPage.right;
                 mainPage.content.anchors.bottom =  bottom.top;
-                if(pageName=="searchPicture.qml"){
+                if(pageName=="SearchPicture.qml"){
                     searchPageImage.source = "qrc:/res/searchOn.png";
                     makePageImage.source = "qrc:/res/makeOff.png";
                     myPageImage.source = "qrc:/res/myOff.png";
-                }else if(pageName=="makePicture.qml"){
+                }else if(pageName=="MakePicture.qml"){
                     searchPageImage.source = "qrc:/res/searchOff.png";
                     makePageImage.source = "qrc:/res/makeOn.png";
                     myPageImage.source = "qrc:/res/myOff.png";
-                }else if(pageName=="myPicture.qml"){
+                }else if(pageName=="MyPicture.qml"){
                     searchPageImage.source = "qrc:/res/searchOff.png";
                     makePageImage.source = "qrc:/res/makeOff.png";
                     myPageImage.source = "qrc:/res/myOn.png";
