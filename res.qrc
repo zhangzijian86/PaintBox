@@ -5,7 +5,6 @@
         <file>qml/myPicture.qml</file>
         <file>qml/searchPicture.qml</file>
         <file>qml/makeDynamicPicture.qml</file>
-        <file>qml/makeStaticPicture.qml</file>
         <file>res/makeOff.png</file>
         <file>res/makeOn.png</file>
         <file>res/myOff.png</file>
@@ -17,5 +16,15 @@
         <file>res/animationImage.png</file>
         <file>res/dynamicImage.png</file>
         <file>res/staticImage.png</file>
+        <file>res/back.png</file>
+        <file>res/expression-1.png</file>
+        <file>res/expression-2.png</file>
+        <file>res/expression-3.png</file>
+        <file>res/expression-4.png</file>
+        <file>res/expression-5.png</file>
+        <file>res/expression-6.png</file>
+        <file>res/expression-7.png</file>
+        <file>res/expression-8.png</file>
+        <file>qml/StaticPicture/makeStaticPicture.qml</file>
     </qresource>
 </RCC>

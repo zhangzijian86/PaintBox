@@ -38,7 +38,7 @@ Rectangle {
             MouseArea{
                 anchors.fill: parent
                 onClicked: {
-
+                    mainPage.pageStack.push("qrc:/qml/StaticPicture/makeStaticPicture.qml");
                 }
             }
         }

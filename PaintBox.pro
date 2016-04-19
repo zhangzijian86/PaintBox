@@ -57,7 +57,8 @@ QML_FILES = qml/*.qml
 OTHER_FILES += $$QML_FILES *.qm \
     qml/makePicture.qml \
     qml/makeDynamicPicture.qml \
-    qml/makeStaticPicture.qml
+    qml/makeStaticPicture.qml \
+    qml/StaticPicture/makeStaticPicture.qml
                
 
 
