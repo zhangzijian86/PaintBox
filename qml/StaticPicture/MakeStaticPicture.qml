@@ -53,6 +53,7 @@ Rectangle {
         id:canvas
         anchors.top: title.bottom
         anchors.left: parent.left
+        anchors.right: parent.right
         height:parent.height*8/14
         width:parent.width
         color: "#ffffff"
@@ -116,24 +117,20 @@ Rectangle {
             MouseArea{
                 anchors.fill: parent
                 onClicked: {
+                    flag = 200;
                     imageUrl = expressionImage.source;
-
-//                    var imageObj = Qt.createQmlObject(
-//                      'import QtQuick 2.0;
-//                       ChieldObject {}', canvasObject);
-
                     var imageObj = Qt.createQmlObject(
                       'import QtQuick 2.0;
-                       Image {
-                           source: "'+imageUrl+'";
+                       ChieldObject {
+                           chield_url: "'+imageUrl+'";
                            width: '+expressionImage.width+';
                            height: '+expressionImage.height+';
-                           anchors.left: parent.left
-                           anchors.leftMargin:  '+flag+'
-                           anchors.verticalCenter: parent.verticalCenter
+                           parent_width: "'+canvas.height+'";
+                           parent_height: "'+canvas.height+'";
+                           x: '+(canvas.width/2-expressionImage.width/2)+'
+                           y: '+(canvas.height/2-expressionImage.height/2)+'
                        }', canvasObject);
-
-                    flag = flag+100;
+                    flag = flag+20;
                 }
             }
         }
