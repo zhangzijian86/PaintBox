@@ -4,6 +4,10 @@ Rectangle{
     property string chield_url:""
     property string parent_width:""
     property string parent_height:""
+    property string chield_index:""
+    property string chield_x:""
+    property string chield_y:""
+    property string chield_rotate:""
     property int pressFlag:0
     property int countFlag:0
     property int lastx:0
@@ -15,6 +19,12 @@ Rectangle{
     height: 10
     border.color: chieldObj.focus==true?"#fce277":"#00000000"
     border.width: chieldObj.focus==true?2:0
+    Connections{
+        target: makeStaticPicture
+        onDeleteFocus:{
+            chieldObj.focus = false;
+        }
+    }
     Rectangle{
         anchors.top: parent.top
         anchors.topMargin: 2
@@ -82,9 +92,11 @@ Rectangle{
                     rotate.from = chieldObj.rotation
                     if(lastx<mouseX){
                         rotate.to = chieldObj.rotation-5
+                        chield_rotate = chieldObj.rotation-5
                     }
                     if(lastx>mouseX){
                         rotate.to = chieldObj.rotation+5
+                        chield_rotate = chieldObj.rotation+5
                     }
                     rotate.running=true;
                     lastx = mouseX;
@@ -93,15 +105,21 @@ Rectangle{
                 countFlag++;
             }
         }
-//        onXChanged: {
-//            if(pressFlag==1){
-//                rotate.from = chieldObj.rotation
-//                rotate.to = chieldObj.rotation+5
-//                rotate.running=true;
-//            }
-//        }
+    }
+    onXChanged: {
+        console.log("====chield_x==00=="+chield_x);
+        chield_x = x;
+        console.log("====chield_x==11=="+chield_x);
+    }
+    onYChanged: {
+        console.log("====chield_y==00=="+chield_y);
+        chield_y = y;
+        console.log("====chield_y==11=="+chield_y);
     }
     Component.onCompleted: {
-            chieldObj.focus=true
+        chieldObj.focus=true
+        console.log("===x======"+x);
+        console.log("===x======"+y);
+        console.log("===chield_index======"+chield_index);
     }
 }

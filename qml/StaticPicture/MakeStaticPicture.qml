@@ -11,6 +11,8 @@ Rectangle {
     property int zflag:10
     property string imageUrl:""
     property alias  canvasObject :canvas
+    property var childrens:[]
+    signal deleteFocus();
     color: "#ffffff"
     Rectangle{
         id:title
@@ -19,6 +21,9 @@ Rectangle {
         height:parent.height/14
         width:parent.width
         color: "#ffffff"
+        onChildrenChanged: {
+            console.log("===========onChildrenChanged==========");
+        }
         CButton{
             anchors.right: parent.right
             anchors.rightMargin: 30
@@ -26,6 +31,16 @@ Rectangle {
             text:"下一步"
             onClicked:{
                 console.log("=下一步=");
+                var i = 0;
+                var chieldImage;
+                for(i=0;i<childrens.length;i++){
+                    chieldImage = childrens[i];
+                    console.log("==="+i+"==index="+chieldImage.chield_index);
+                    console.log("==="+i+"==x="+chieldImage.chield_x);
+                    console.log("==="+i+"==y="+chieldImage.chield_y);
+                    console.log("==="+i+"==rotate="+chieldImage.chield_rotate);
+                    console.log("==="+i+"==url="+chieldImage.chield_url);
+                }
             }
         }
         Image {
@@ -57,6 +72,12 @@ Rectangle {
         height:parent.height*8/14
         width:parent.width
         color: "#ffffff"
+        MouseArea{
+            anchors.fill: parent
+            onClicked: {
+                deleteFocus();
+            }
+        }
     }
 
     Rectangle{
@@ -84,7 +105,7 @@ Rectangle {
         anchors.left: parent.left
         height:parent.height/13
         width:parent.width
-        color: "#e2e2e2"
+        color: "#ffffff"
         ListView{
             anchors.top:parent.top
             anchors.topMargin: 5
@@ -117,7 +138,6 @@ Rectangle {
             MouseArea{
                 anchors.fill: parent
                 onClicked: {
-                    flag = 200;
                     imageUrl = expressionImage.source;
                     var imageObj = Qt.createQmlObject(
                       'import QtQuick 2.0;
@@ -127,10 +147,12 @@ Rectangle {
                            height: '+expressionImage.height+';
                            parent_width: "'+canvas.height+'";
                            parent_height: "'+canvas.height+'";
+                           chield_index: "'+flag+'";
                            x: '+(canvas.width/2-expressionImage.width/2)+'
                            y: '+(canvas.height/2-expressionImage.height/2)+'
                        }', canvasObject);
-                    flag = flag+20;
+                    childrens.push(imageObj);
+                    flag ++;
                 }
             }
         }
