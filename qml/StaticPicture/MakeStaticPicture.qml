@@ -40,6 +40,11 @@ Rectangle {
                     console.log("==="+i+"==y="+chieldImage.chield_y);
                     console.log("==="+i+"==rotate="+chieldImage.chield_rotate);
                     console.log("==="+i+"==url="+chieldImage.chield_url);
+                    console.log("==="+i+"==focus="+chieldImage.focus);
+                    if(chieldImage.focus==true){
+                        childrens.splice(i,1);
+                        chieldImage.destroy();
+                    }
                 }
             }
         }

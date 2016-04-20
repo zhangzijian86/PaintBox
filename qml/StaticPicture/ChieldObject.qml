@@ -50,9 +50,6 @@ Rectangle{
                 chieldObj.focus=true
             }
         }
-//        onFocusChanged: {
-//            console.log("=========chieldObjMouseArea==onFocusChanged========="+chieldObj.focus);
-//        }
 
         PropertyAnimation{
             id:rotate
@@ -107,19 +104,12 @@ Rectangle{
         }
     }
     onXChanged: {
-        console.log("====chield_x==00=="+chield_x);
         chield_x = x;
-        console.log("====chield_x==11=="+chield_x);
     }
     onYChanged: {
-        console.log("====chield_y==00=="+chield_y);
         chield_y = y;
-        console.log("====chield_y==11=="+chield_y);
     }
     Component.onCompleted: {
-        chieldObj.focus=true
-        console.log("===x======"+x);
-        console.log("===x======"+y);
-        console.log("===chield_index======"+chield_index);
+        chieldObj.focus=true;
     }
 }
