@@ -27,5 +27,7 @@
         <file>qml/StaticPicture/MakeStaticPicture.qml</file>
         <file>qml/StaticPicture/ChieldObject.qml</file>
         <file>qml/main.qml</file>
+        <file>res/modify.png</file>
+        <file>res/rotate.png</file>
     </qresource>
 </RCC>
