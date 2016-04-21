@@ -34,9 +34,11 @@ DEFINES += APP_DIR=\\\"$$APP_DIR\\\"
 
 # The .cpp file which was generated for your project.
 SOURCES += src/main.cpp \
-           src/PaintBox_Workspace.cpp
+           src/PaintBox_Workspace.cpp \
+    src/makeimage.cpp
 
-HEADERS += src/PaintBox_Workspace.h
+HEADERS += src/PaintBox_Workspace.h \
+    src/makeimage.h
 
 # Installation path
 target.path = $$INS_DIR/bin

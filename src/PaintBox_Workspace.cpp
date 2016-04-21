@@ -1,11 +1,12 @@
 #include "PaintBox_Workspace.h"
-#include <QDebug>
+#include "makeimage.h"
 
 PaintBox_Workspace::PaintBox_Workspace()
     : CWorkspace()
 {
     m_view = SYBEROS::SyberosGuiCache::qQuickView();
     QObject::connect(m_view->engine(), SIGNAL(quit()), qApp, SLOT(quit()));
+    qmlRegisterType<MakeImage>("com.syberos.makeimage", 1, 0, "MakeImage");
     m_view->setSource(QUrl("qrc:/qml/main.qml"));
     m_view->showFullScreen();
 }

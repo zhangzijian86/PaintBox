@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import com.syberos.basewidgets 2.0
+//import MakeImage 1.0
 import "./"
 
 Rectangle {
@@ -12,6 +13,7 @@ Rectangle {
     property string imageUrl:""
     property alias  canvasObject :canvas
     property var childrens:[]
+    property var passValue:[]
     signal deleteFocus();
     color: "#ffffff"
     Rectangle{
@@ -24,6 +26,10 @@ Rectangle {
         onChildrenChanged: {
             console.log("===========onChildrenChanged==========");
         }
+//        MakeImage{
+//            id:makeImage
+//        }
+
         CButton{
             anchors.right: parent.right
             anchors.rightMargin: 30
@@ -33,19 +39,34 @@ Rectangle {
                 console.log("=下一步=");
                 var i = 0;
                 var chieldImage;
+                var tmpStr = "";
                 for(i=0;i<childrens.length;i++){
                     chieldImage = childrens[i];
+                    tmpStr = tmpStr + chieldImage.chield_index;
+                    tmpStr = tmpStr +"-"+ chieldImage.chield_x;
+                    tmpStr = tmpStr +"-"+ chieldImage.chield_y;
+                    tmpStr = tmpStr +"-"+ chieldImage.width;
+                    tmpStr = tmpStr +"-"+ chieldImage.height;
+                    tmpStr = tmpStr +"-"+ chieldImage.chield_rotate;
+                    tmpStr = tmpStr +"-"+ chieldImage.chield_url;
                     console.log("==="+i+"==index="+chieldImage.chield_index);
                     console.log("==="+i+"==x="+chieldImage.chield_x);
                     console.log("==="+i+"==y="+chieldImage.chield_y);
+                    console.log("==="+i+"==width="+chieldImage.width);
+                    console.log("==="+i+"==height="+chieldImage.height);
                     console.log("==="+i+"==rotate="+chieldImage.chield_rotate);
                     console.log("==="+i+"==url="+chieldImage.chield_url);
                     console.log("==="+i+"==focus="+chieldImage.focus);
-                    if(chieldImage.focus==true){
-                        childrens.splice(i,1);
-                        chieldImage.destroy();
-                    }
+                    console.log("==="+i+"==tmpStr="+tmpStr);
+                    passValue.push(tmpStr);
+                    tmpStr = "";
+//                    if(chieldImage.focus==true){
+//                        childrens.splice(i,1);
+//                        chieldImage.destroy();
+//                    }
                 }
+//                makeImage.sendFaultReportRequest(passValue);
+//                passValue.splice(0,makeImage.length);
             }
         }
         Image {
@@ -163,6 +184,7 @@ Rectangle {
         }
     }
     Component.onCompleted: {
+        makeImage.splice(0,makeImage.length);
         expressionModel.clear();
         expressionModel.append({image:"qrc:/res/expression-1.png"});
         expressionModel.append({image:"qrc:/res/expression-2.png"});
