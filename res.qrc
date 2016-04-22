@@ -12,14 +12,6 @@
         <file>res/dynamicImage.png</file>
         <file>res/staticImage.png</file>
         <file>res/back.png</file>
-        <file>res/expression-1.png</file>
-        <file>res/expression-2.png</file>
-        <file>res/expression-3.png</file>
-        <file>res/expression-4.png</file>
-        <file>res/expression-5.png</file>
-        <file>res/expression-6.png</file>
-        <file>res/expression-7.png</file>
-        <file>res/expression-8.png</file>
         <file>qml/MakeDynamicPicture.qml</file>
         <file>qml/MakePicture.qml</file>
         <file>qml/MyPicture.qml</file>
@@ -29,5 +21,13 @@
         <file>qml/main.qml</file>
         <file>res/modify.png</file>
         <file>res/rotate.png</file>
+        <file>res/expression_1.png</file>
+        <file>res/expression_2.png</file>
+        <file>res/expression_3.png</file>
+        <file>res/expression_4.png</file>
+        <file>res/expression_5.png</file>
+        <file>res/expression_6.png</file>
+        <file>res/expression_7.png</file>
+        <file>res/expression_8.png</file>
     </qresource>
 </RCC>

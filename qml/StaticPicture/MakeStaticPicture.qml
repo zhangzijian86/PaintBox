@@ -1,6 +1,6 @@
 import QtQuick 2.0
 import com.syberos.basewidgets 2.0
-//import MakeImage 1.0
+import com.syberos.makeimage 1.0
 import "./"
 
 Rectangle {
@@ -26,9 +26,9 @@ Rectangle {
         onChildrenChanged: {
             console.log("===========onChildrenChanged==========");
         }
-//        MakeImage{
-//            id:makeImage
-//        }
+        MakeImage{
+            id:makeImage
+        }
 
         CButton{
             anchors.right: parent.right
@@ -65,8 +65,8 @@ Rectangle {
 //                        chieldImage.destroy();
 //                    }
                 }
-//                makeImage.sendFaultReportRequest(passValue);
-//                passValue.splice(0,makeImage.length);
+                makeImage.makeStaticImage(canvas.width,canvas.height,passValue);
+                passValue.splice(0,makeImage.length);
             }
         }
         Image {
@@ -184,15 +184,15 @@ Rectangle {
         }
     }
     Component.onCompleted: {
-        makeImage.splice(0,makeImage.length);
+        passValue.splice(0,makeImage.length);
         expressionModel.clear();
-        expressionModel.append({image:"qrc:/res/expression-1.png"});
-        expressionModel.append({image:"qrc:/res/expression-2.png"});
-        expressionModel.append({image:"qrc:/res/expression-3.png"});
-        expressionModel.append({image:"qrc:/res/expression-4.png"});
-        expressionModel.append({image:"qrc:/res/expression-5.png"});
-        expressionModel.append({image:"qrc:/res/expression-6.png"});
-        expressionModel.append({image:"qrc:/res/expression-7.png"});
-        expressionModel.append({image:"qrc:/res/expression-8.png"});
+        expressionModel.append({image:"qrc:/res/expression_1.png"});
+        expressionModel.append({image:"qrc:/res/expression_2.png"});
+        expressionModel.append({image:"qrc:/res/expression_3.png"});
+        expressionModel.append({image:"qrc:/res/expression_4.png"});
+        expressionModel.append({image:"qrc:/res/expression_5.png"});
+        expressionModel.append({image:"qrc:/res/expression_6.png"});
+        expressionModel.append({image:"qrc:/res/expression_7.png"});
+        expressionModel.append({image:"qrc:/res/expression_8.png"});
     }
 }

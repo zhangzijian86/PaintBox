@@ -2,6 +2,8 @@
 #define MAKEIMAGE_H
 
 #include <QObject>
+#include <QPainter>
+#include <QPixmap>
 #include <QDebug>
 
 class MakeImage : public QObject
@@ -10,7 +12,8 @@ class MakeImage : public QObject
 
 public:
     explicit MakeImage(QObject *parent = 0);
-    Q_INVOKABLE QString sendFaultReportRequest(const QStringList &imgList);
+    Q_INVOKABLE QString makeStaticImage(int Bgwidht,int Bgheight,const QStringList &imgList);
+    QString processingString(QString strTmp);
 };
 
 #endif // MAKEIMAGE_H
