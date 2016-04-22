@@ -5,7 +5,7 @@ MakeImage::MakeImage(QObject *parent):QObject(parent)
 }
 
 QString MakeImage::makeStaticImage(int Bgwidht,int Bgheight,const QStringList &imgList){
-    QPixmap *pix=new QPixmap(QSize(Bgwidht,Bgheight));
+    QPixmap *pix=new QPixmap(QSize(Bgwidht/3,Bgheight/3));
     pix->fill(Qt::white);
     QPainter paint(pix);
     for(int i = 0; i<imgList.length();i++){
@@ -20,11 +20,11 @@ QString MakeImage::makeStaticImage(int Bgwidht,int Bgheight,const QStringList &i
         urlTmp = urlTmp.mid(urlTmp.lastIndexOf("/"),urlTmp.length()-1);
         urlTmp = ":res"+urlTmp;
         if(rotatetTmp==""){
-            paint.drawPixmap(xTmp.toInt(),yTmp.toInt(),widhtTmp.toInt(),heightTmp.toInt(),QPixmap(urlTmp));
+            paint.drawPixmap(xTmp.toInt()/3,yTmp.toInt()/3,widhtTmp.toInt()/3,heightTmp.toInt()/3,QPixmap(urlTmp));
         }else{
             QMatrix leftmatrix;
             leftmatrix.rotate(rotatetTmp.toInt());
-            paint.drawPixmap(xTmp.toInt(),yTmp.toInt(),widhtTmp.toInt(),heightTmp.toInt(),QPixmap(urlTmp).transformed(leftmatrix,Qt::SmoothTransformation));
+            paint.drawPixmap(xTmp.toInt()/3,yTmp.toInt()/3,widhtTmp.toInt()/3,heightTmp.toInt()/3,QPixmap(urlTmp).transformed(leftmatrix,Qt::SmoothTransformation));
         }
         qDebug()<<"==urlTmp=="+ urlTmp;
     }
