@@ -29,5 +29,6 @@
         <file>res/expression_6.png</file>
         <file>res/expression_7.png</file>
         <file>res/expression_8.png</file>
+        <file>res/move.png</file>
     </qresource>
 </RCC>

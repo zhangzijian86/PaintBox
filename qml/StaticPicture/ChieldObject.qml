@@ -9,6 +9,7 @@ Rectangle{
     property string chield_y:""
     property string chield_rotate:""
     property int pressFlag:0
+    property int rotateOrMoveFlag:0
     property int countFlag:0
     property int lastx:0
     property int lasty:0
@@ -17,7 +18,7 @@ Rectangle{
     y:0
     width:10
     height: 10
-    border.color: chieldObj.focus==true?"#fce277":"#00000000"
+    border.color: chieldObj.focus==true?"#0ced8b":"#00000000"
     border.width: chieldObj.focus==true?2:0
     Connections{
         target: makeStaticPicture
@@ -40,24 +41,20 @@ Rectangle{
         MouseArea{
             id:chieldObjMouseArea
             anchors.fill: parent
-            drag.target: chieldObj.focus==true?chieldObj:null
+            drag.target: chieldObj.focus==true&&rotateOrMoveFlag==0?chieldObj:null
             drag.axis: "XAndYAxis"//XAxis//XAndYAxis//YAxis
             drag.minimumX: 0
             drag.maximumX: parent_width-chieldObj.width+40
             drag.minimumY: 0
             drag.maximumY: parent_height-chieldObj.height
             onClicked: {
+                console.log("==========clicked=============");
+                if(chieldObj.focus==false){
+                    chieldObj.border.color="#0ced8b"
+                    rotateOrMoveFlag = 0;
+                }
                 chieldObj.focus=true
             }
-        }
-
-        PropertyAnimation{
-            id:rotate
-            target:chieldObj
-            properties:"rotation"
-            from : 0
-            to:90
-            duration:10
         }
     }
     Image {
@@ -72,34 +69,29 @@ Rectangle{
         MouseArea{
             id:rotateImageMouseArea
             anchors.fill: parent
-            drag.target: pressFlag==1?rotateImage:null
-            drag.axis: "XAndYAxis"//XAxis//XAndYAxis//YAxis
-            drag.minimumX: 0
-            drag.maximumX: chieldObj.width
-            drag.minimumY: 0
-            drag.maximumY: chieldObj.height
-            onPressed: {
-                pressFlag = 1;
+            onClicked: {
+                console.log("==========rotate=============");
+                chieldObj.border.color="#fce277"
+                rotateOrMoveFlag = 1;
             }
-            onReleased: {
-                pressFlag = 0;
-            }
-            onMouseXChanged: {
-                if(pressFlag==1&&countFlag%5==0){
-                    rotate.from = chieldObj.rotation
-                    if(lastx<mouseX){
-                        rotate.to = chieldObj.rotation-5
-                        chield_rotate = chieldObj.rotation-5
-                    }
-                    if(lastx>mouseX){
-                        rotate.to = chieldObj.rotation+5
-                        chield_rotate = chieldObj.rotation+5
-                    }
-                    rotate.running=true;
-                    lastx = mouseX;
-                    lasty = mouseY;
-                }
-                countFlag++;
+        }
+    }
+    Image {
+        id:moveImage
+        z:2
+        visible: chieldObj.focus==true
+        source: "qrc:/res/move.png";
+        anchors.left: parent.left
+        anchors.leftMargin: -25
+        anchors.top:parent.top
+        anchors.topMargin: -25
+        MouseArea{
+            id:moveImageMouseArea
+            anchors.fill: parent
+            onClicked: {
+                console.log("==========move=============");
+                chieldObj.border.color="#0ced8b"
+                rotateOrMoveFlag = 0;
             }
         }
     }
@@ -111,5 +103,7 @@ Rectangle{
     }
     Component.onCompleted: {
         chieldObj.focus=true;
+        chieldObj.border.color="#0ced8b"
+        rotateOrMoveFlag = 0;
     }
 }
