@@ -9,7 +9,6 @@ Rectangle{
     property string chield_y:""
     property string chield_rotate:""
     property int pressFlag:0
-    property int rotateOrMoveFlag:0
     property int countFlag:0
     property int lastx:0
     property int lasty:0
@@ -26,37 +25,50 @@ Rectangle{
             chieldObj.focus = false;
         }
     }
-    Rectangle{
-        anchors.top: parent.top
-        anchors.topMargin: 2
-        anchors.left: parent.left
-        anchors.leftMargin: 2
-        anchors.right: parent.right
-        anchors.rightMargin: 2
-        height: parent.height-5
-        Image {
-            source: chieldObj.chield_url;
-            anchors.fill: parent
+
+    Image {
+        source: chieldObj.chield_url;
+        anchors.fill: parent
+    }
+
+    onFocusChanged: {
+        if(chieldObj.focus!=true){
+            chieldObjPinchArea.visible=false
         }
-        MouseArea{
-            id:chieldObjMouseArea
-            anchors.fill: parent
-            drag.target: chieldObj.focus==true&&rotateOrMoveFlag==0?chieldObj:null
-            drag.axis: "XAndYAxis"//XAxis//XAndYAxis//YAxis
-            drag.minimumX: 0
-            drag.maximumX: parent_width-chieldObj.width+40
-            drag.minimumY: 0
-            drag.maximumY: parent_height-chieldObj.height
-            onClicked: {
-                console.log("==========clicked=============");
-                if(chieldObj.focus==false){
-                    chieldObj.border.color="#0ced8b"
-                    rotateOrMoveFlag = 0;
-                }
-                chieldObj.focus=true
+        chieldObjMouseArea.visible=true
+    }
+
+    MouseArea{
+        id:chieldObjMouseArea
+        visible:false
+        anchors.fill: chieldObj
+        drag.target: chieldObj.focus==true?chieldObj:null
+        drag.axis: "XAndYAxis"//XAxis//XAndYAxis//YAxis
+        drag.minimumX: 0
+        drag.maximumX: parent_width-chieldObj.width+40
+        drag.minimumY: 0
+        drag.maximumY: parent_height-chieldObj.height
+        onClicked: {
+            console.log("==========clicked=============");
+            if(chieldObj.focus==false){
+                chieldObj.border.color="#0ced8b"
             }
+            chieldObj.focus=true
+            chieldObjMouseArea.visible = true;
         }
     }
+
+    PinchArea {
+        id:chieldObjPinchArea
+        anchors.fill: chieldObj
+        pinch.target: chieldObj
+        visible:false
+        pinch.maximumScale: 20;
+        pinch.minimumScale: 0.2;
+        pinch.minimumRotation: 0;
+        pinch.maximumRotation: 90;
+    }
+
     Image {
         id:rotateImage
         z:2
@@ -72,7 +84,8 @@ Rectangle{
             onClicked: {
                 console.log("==========rotate=============");
                 chieldObj.border.color="#fce277"
-                rotateOrMoveFlag = 1;
+                chieldObjMouseArea.visible = false;
+                chieldObjPinchArea.visible = true;
             }
         }
     }
@@ -91,7 +104,8 @@ Rectangle{
             onClicked: {
                 console.log("==========move=============");
                 chieldObj.border.color="#0ced8b"
-                rotateOrMoveFlag = 0;
+                chieldObjMouseArea.visible = true;
+                chieldObjPinchArea.visible = false;
             }
         }
     }
@@ -104,6 +118,5 @@ Rectangle{
     Component.onCompleted: {
         chieldObj.focus=true;
         chieldObj.border.color="#0ced8b"
-        rotateOrMoveFlag = 0;
     }
 }

@@ -64,9 +64,11 @@ Rectangle {
 //                        childrens.splice(i,1);
 //                        chieldImage.destroy();
 //                    }
+//                    childrens.splice(i,1);
+//                    chieldImage.destroy();
                 }
-                makeImage.makeStaticImage(canvas.width,canvas.height,passValue);
-                passValue.splice(0,makeImage.length);
+//                makeImage.makeStaticImage(canvas.width,canvas.height,passValue);
+//                passValue.splice(0,makeImage.length);
             }
         }
         Image {

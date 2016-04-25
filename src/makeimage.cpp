@@ -28,7 +28,7 @@ QString MakeImage::makeStaticImage(int Bgwidht,int Bgheight,const QStringList &i
         }
         qDebug()<<"==urlTmp=="+ urlTmp;
     }
-    pix->save("./55.jpg");
+    pix->save("./66.jpg");
     return "111";
 }
 QString MakeImage::processingString(QString strTmp){
