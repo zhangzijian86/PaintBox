@@ -9,8 +9,7 @@ Rectangle{
     property string chield_y:""
     property string chield_rotate:""
     property int pressFlag:0
-    property int countScale:1
-    property int conutFlag:0
+    property int countFlag:0
     property int lastx:0
     property int lasty:0
     color:"#00000000"
@@ -68,12 +67,6 @@ Rectangle{
         pinch.minimumScale: 0.2;
         pinch.minimumRotation: 0;
         pinch.maximumRotation: 90;
-        onPinchStarted: {
-
-        }
-        onPinchFinished: {
-            countScale = countScale*pinch.scale;
-        }
     }
 
     Image {
@@ -125,7 +118,5 @@ Rectangle{
     Component.onCompleted: {
         chieldObj.focus=true;
         chieldObj.border.color="#0ced8b"
-        console.log("==========chieldObj.x============="+chieldObj.x);
-        console.log("==========chieldObj.y============="+chieldObj.y);
     }
 }
