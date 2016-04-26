@@ -1,6 +1,7 @@
 import QtQuick 2.0
 Rectangle{
     id:chieldObj
+    property int chield_reversal:0
     property string chield_url:""
     property string parent_width:""
     property string parent_height:""
@@ -9,8 +10,8 @@ Rectangle{
     property string chield_y:""
     property string chield_rotate:""
     property int pressFlag:0
-    property int countScale:1
-    property int conutFlag:0
+    property int countFlag:0
+    property real countScale:1.0
     property int lastx:0
     property int lasty:0
     color:"#00000000"
@@ -25,9 +26,21 @@ Rectangle{
         onDeleteFocus:{
             chieldObj.focus = false;
         }
-    }
+        onImageReversal:{
+            if(chieldObj.focus==true){
+                if(chieldObj.chield_reversal==0){
+                    expressionImage.mirror = true
+                    chieldObj.chield_reversal=1
+                }else{
+                    expressionImage.mirror = false
+                    chieldObj.chield_reversal=0
+                }
+            }
+        }
+     }
 
     Image {
+        id:expressionImage
         source: chieldObj.chield_url;
         anchors.fill: parent
     }
@@ -64,15 +77,26 @@ Rectangle{
         anchors.fill: chieldObj
         pinch.target: chieldObj
         visible:false
-        pinch.maximumScale: 20;
+        pinch.maximumScale: 2;
         pinch.minimumScale: 0.2;
-        pinch.minimumRotation: 0;
-        pinch.maximumRotation: 90;
+        pinch.minimumRotation: -360000;
+        pinch.maximumRotation: 3600000;
         onPinchStarted: {
+            console.log("=======pinch.center.x===00==="+pinch.center.x)
+            console.log("=======pinch.center.y===00==="+pinch.center.y)
+        }
+        onPinchUpdated: {
 
         }
         onPinchFinished: {
-            countScale = countScale*pinch.scale;
+            console.log("=======pinch.scale======"+pinch.scale)
+            countScale = countScale*pinch.scale
+            console.log("=======countScale======"+countScale)
+            console.log("=======pinch.center.x===11==="+pinch.center.x)
+            console.log("=======pinch.center.y===11==="+pinch.center.y)
+//            chieldObj.chield_x = (chieldObj.x - (chieldObj.width/2)*(pinch.scale-1))
+//            chieldObj.chield_y = (chieldObj.y - (chieldObj.height/2)*(pinch.scale-1))
+
         }
     }
 
@@ -118,14 +142,31 @@ Rectangle{
     }
     onXChanged: {
         chield_x = x;
+        console.log("=========onXChanged========");
     }
     onYChanged: {
         chield_y = y;
+        console.log("=========chield_y========");
     }
+    onWidthChanged: {
+        console.log("=========onWidthChanged========");
+    }
+    onHeightChanged: {
+        console.log("=========onHeightChanged========");
+    }
+    onRotationChanged: {
+        console.log("=========onRotationChanged========"+chieldObj.rotation);
+        chield_rotate = chieldObj.rotation%360;
+    }
+
     Component.onCompleted: {
         chieldObj.focus=true;
         chieldObj.border.color="#0ced8b"
-        console.log("==========chieldObj.x============="+chieldObj.x);
-        console.log("==========chieldObj.y============="+chieldObj.y);
+        console.log("=========x===="+x);
+        console.log("=========y===="+y);
+        console.log("=========chieldObj.width===="+chieldObj.width);
+        console.log("=========chieldObj.height===="+chieldObj.height);
+        console.log("=========yuan_x===="+(x+chieldObj.width));
+        console.log("=========yuan_y===="+(y+chieldObj.height));
     }
 }

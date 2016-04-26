@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QPainter>
 #include <QPixmap>
+#include <QImage>
 #include <QDebug>
 
 class MakeImage : public QObject
