@@ -12,7 +12,6 @@ CPageStackWindow {
         Component.onCompleted: {
             gScreenInfo.setStatusBar(true)
             gScreenInfo.setStatusBarStyle("transblack")
-            statusBarHoldItemColor = "#FEE680"
         }
 
         contentAreaItem: Item {
@@ -25,6 +24,16 @@ CPageStackWindow {
                 height: parent.height/10
                 anchors.top: parent.top
                 color: "#FEE680"
+                Text {
+                    id: titleText
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.bottom: parent.bottom
+                    anchors.bottomMargin: 15
+                    elide:Text.ElideRight
+                    color: "#b5e8ff"
+                    font.pixelSize: 42
+                    text: "颜料盒子"
+                }
             }
 
             Rectangle{

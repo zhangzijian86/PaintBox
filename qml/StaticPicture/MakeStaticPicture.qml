@@ -12,13 +12,16 @@ CPage {
     property int zflag:10
     property int size:3
     property string imageUrl:""
+    property string materialType:""
     property alias  canvasObject :canvas
     property var childrens:[]
     property var passValue:[]
+    property var nameValue:["expression-基础","corpse-僵尸","throwdog-扔狗","collapse-崩溃"]
     signal deleteFocus();
     signal imageReversal();
     color: "#ffffff"
     contentAreaItem: Item {
+        id:mainItem
         Rectangle{
             id:title
             anchors.top: parent.top
@@ -27,8 +30,20 @@ CPage {
             width:parent.width
             color: "#ffffff"
             onChildrenChanged: {
-                console.log("===========onChildrenChanged==========");
+
             }
+
+            Text {
+                id: titleText
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.bottom: division.bottom
+                anchors.bottomMargin: 15
+                elide:Text.ElideRight
+                color: "#b5e8ff"
+                font.pixelSize: 42
+                text: "颜料盒子"
+            }
+
             MakeImage{
                 id:makeImage
             }
@@ -91,6 +106,7 @@ CPage {
                 }
             }
             Rectangle{
+                id:division
                 anchors.bottom: parent.bottom
                 anchors.left: parent.left
                 width:parent.width
@@ -263,8 +279,57 @@ CPage {
             anchors.left: parent.left
             height:parent.height/13
             width:parent.width
-            color: "red"
+            color: "#ffffff"
+            ListView{
+                anchors.top:parent.top
+                anchors.topMargin: 5
+                anchors.left: parent.left
+                anchors.leftMargin: 33
+                anchors.right: parent.right
+                anchors.rightMargin: 250
+                anchors.bottom: parent.bottom
+                anchors.bottomMargin: 5
+                orientation: ListView.Horizontal
+                model:typeModel
+                delegate: typeDelegate
+            }
+        }
 
+        ListModel {
+            id:typeModel
+            ListElement {
+                typeName:""
+                isSelected:""
+            }
+        }
+
+        Component {
+            id:typeDelegate
+            Text{
+                id:typeText
+                height: parent.height
+                width:type.width/4
+                text:typeName
+                color:"#62b09f"
+                font.pixelSize: 30
+                anchors.top: parent.top
+                anchors.topMargin: 28
+                MouseArea{
+                    anchors.fill: parent
+                    onClicked: {
+                        console.log("======typeText============"+typeText.text);
+                        mainItem.changeModel(typeText.text);
+                    }
+                }
+            }
+        }
+
+        Rectangle{
+            anchors.top: type.top
+            anchors.left: parent.left
+            width:parent.width
+            height: 2
+            color: "#e2e2e2"
         }
 
         Rectangle{
@@ -296,6 +361,7 @@ CPage {
                 image:""
             }
         }
+
         Component {
             id:expressionDelegate
             Image{
@@ -327,6 +393,14 @@ CPage {
             }
         }
 
+        Rectangle{
+            anchors.top: expression.top
+            anchors.left: parent.left
+            width:parent.width
+            height: 2
+            color: "#e2e2e2"
+        }
+
         CDialog{
             id:deleteAllDialog
             visible: false
@@ -351,14 +425,105 @@ CPage {
         Component.onCompleted: {
             passValue.splice(0,makeImage.length);
             expressionModel.clear();
-            expressionModel.append({image:"qrc:/res/expression_1.png"});
-            expressionModel.append({image:"qrc:/res/expression_2.png"});
-            expressionModel.append({image:"qrc:/res/expression_3.png"});
-            expressionModel.append({image:"qrc:/res/expression_4.png"});
-            expressionModel.append({image:"qrc:/res/expression_5.png"});
-            expressionModel.append({image:"qrc:/res/expression_6.png"});
-            expressionModel.append({image:"qrc:/res/expression_7.png"});
-            expressionModel.append({image:"qrc:/res/expression_8.png"});
+            typeModel.clear();
+            var str = makeStaticPicture.materialType.toString();
+            str = str.substring(str.indexOf("-")+1,str.length);
+            typeModel.append({typeName:str,isSelected:"1"});
+            if(makeStaticPicture.materialType=="expression-基础"){
+                expressionModel.append({image:"qrc:/res/expression_1.png"});
+                expressionModel.append({image:"qrc:/res/expression_2.png"});
+                expressionModel.append({image:"qrc:/res/expression_3.png"});
+                expressionModel.append({image:"qrc:/res/expression_4.png"});
+                expressionModel.append({image:"qrc:/res/expression_5.png"});
+                expressionModel.append({image:"qrc:/res/expression_6.png"});
+                expressionModel.append({image:"qrc:/res/expression_7.png"});
+                expressionModel.append({image:"qrc:/res/expression_8.png"});
+            }
+            if(makeStaticPicture.materialType=="corpse-僵尸"){
+                expressionModel.append({image:"qrc:/res/corpse/corpse_1.png"});
+                expressionModel.append({image:"qrc:/res/corpse/corpse_2.png"});
+                expressionModel.append({image:"qrc:/res/corpse/corpse_3.png"});
+                expressionModel.append({image:"qrc:/res/corpse/corpse_4.png"});
+                expressionModel.append({image:"qrc:/res/corpse/corpse_5.png"});
+                expressionModel.append({image:"qrc:/res/corpse/corpse_6.png"});
+                expressionModel.append({image:"qrc:/res/corpse/corpse_7.png"});
+                expressionModel.append({image:"qrc:/res/corpse/corpse_8.png"});
+            }
+            if(makeStaticPicture.materialType=="throwdog-扔狗"){
+                expressionModel.append({image:"qrc:/res/throwdog/throwdog_1.png"});
+                expressionModel.append({image:"qrc:/res/throwdog/throwdog_2.png"});
+                expressionModel.append({image:"qrc:/res/throwdog/throwdog_3.png"});
+                expressionModel.append({image:"qrc:/res/throwdog/throwdog_4.png"});
+                expressionModel.append({image:"qrc:/res/throwdog/throwdog_5.png"});
+                expressionModel.append({image:"qrc:/res/throwdog/throwdog_6.png"});
+                expressionModel.append({image:"qrc:/res/throwdog/throwdog_7.png"});
+                expressionModel.append({image:"qrc:/res/throwdog/throwdog_8.png"});
+            }
+            if(makeStaticPicture.materialType=="collapse-崩溃"){
+                expressionModel.append({image:"qrc:/res/collapse/collapse_1.png"});
+                expressionModel.append({image:"qrc:/res/collapse/collapse_2.png"});
+                expressionModel.append({image:"qrc:/res/collapse/collapse_3.png"});
+                expressionModel.append({image:"qrc:/res/collapse/collapse_4.png"});
+                expressionModel.append({image:"qrc:/res/collapse/collapse_5.png"});
+                expressionModel.append({image:"qrc:/res/collapse/collapse_6.png"});
+                expressionModel.append({image:"qrc:/res/collapse/collapse_7.png"});
+                expressionModel.append({image:"qrc:/res/collapse/collapse_8.png"});
+            }
+            var i =0
+            var strOne = "";
+            for(i=0;i<nameValue.length;i++){
+                if(makeStaticPicture.materialType!=nameValue[i]){
+                   strOne = nameValue[i];
+                   strOne = strOne.substring(strOne.indexOf("-")+1,strOne.length);
+                   typeModel.append({typeName:strOne,isSelected:"0"});
+                }
+            }
+        }
+        function changeModel(type){
+            if(type=="基础"){
+                expressionModel.clear();
+                expressionModel.append({image:"qrc:/res/expression_1.png"});
+                expressionModel.append({image:"qrc:/res/expression_2.png"});
+                expressionModel.append({image:"qrc:/res/expression_3.png"});
+                expressionModel.append({image:"qrc:/res/expression_4.png"});
+                expressionModel.append({image:"qrc:/res/expression_5.png"});
+                expressionModel.append({image:"qrc:/res/expression_6.png"});
+                expressionModel.append({image:"qrc:/res/expression_7.png"});
+                expressionModel.append({image:"qrc:/res/expression_8.png"});
+            }
+            if(type=="僵尸"){
+                expressionModel.clear();
+                expressionModel.append({image:"qrc:/res/corpse/corpse_1.png"});
+                expressionModel.append({image:"qrc:/res/corpse/corpse_2.png"});
+                expressionModel.append({image:"qrc:/res/corpse/corpse_3.png"});
+                expressionModel.append({image:"qrc:/res/corpse/corpse_4.png"});
+                expressionModel.append({image:"qrc:/res/corpse/corpse_5.png"});
+                expressionModel.append({image:"qrc:/res/corpse/corpse_6.png"});
+                expressionModel.append({image:"qrc:/res/corpse/corpse_7.png"});
+                expressionModel.append({image:"qrc:/res/corpse/corpse_8.png"});
+            }
+            if(type=="扔狗"){
+                expressionModel.clear();
+                expressionModel.append({image:"qrc:/res/throwdog/throwdog_1.png"});
+                expressionModel.append({image:"qrc:/res/throwdog/throwdog_2.png"});
+                expressionModel.append({image:"qrc:/res/throwdog/throwdog_3.png"});
+                expressionModel.append({image:"qrc:/res/throwdog/throwdog_4.png"});
+                expressionModel.append({image:"qrc:/res/throwdog/throwdog_5.png"});
+                expressionModel.append({image:"qrc:/res/throwdog/throwdog_6.png"});
+                expressionModel.append({image:"qrc:/res/throwdog/throwdog_7.png"});
+                expressionModel.append({image:"qrc:/res/throwdog/throwdog_8.png"});
+            }
+            if(type=="崩溃"){
+                expressionModel.clear();
+                expressionModel.append({image:"qrc:/res/collapse/collapse_1.png"});
+                expressionModel.append({image:"qrc:/res/collapse/collapse_2.png"});
+                expressionModel.append({image:"qrc:/res/collapse/collapse_3.png"});
+                expressionModel.append({image:"qrc:/res/collapse/collapse_4.png"});
+                expressionModel.append({image:"qrc:/res/collapse/collapse_5.png"});
+                expressionModel.append({image:"qrc:/res/collapse/collapse_6.png"});
+                expressionModel.append({image:"qrc:/res/collapse/collapse_7.png"});
+                expressionModel.append({image:"qrc:/res/collapse/collapse_8.png"});
+            }
         }
     }
 }

@@ -38,5 +38,35 @@
         <file>res/middle.png</file>
         <file>res/small.png</file>
         <file>res/deleteAll.png</file>
+        <file>res/collapse/collapse_1.png</file>
+        <file>res/collapse/collapse_2.png</file>
+        <file>res/collapse/collapse_3.png</file>
+        <file>res/collapse/collapse_4.png</file>
+        <file>res/collapse/collapse_5.png</file>
+        <file>res/collapse/collapse_6.png</file>
+        <file>res/collapse/collapse_7.png</file>
+        <file>res/collapse/collapse_8.png</file>
+        <file>res/corpse/corpse_1.png</file>
+        <file>res/corpse/corpse_2.png</file>
+        <file>res/corpse/corpse_3.png</file>
+        <file>res/corpse/corpse_4.png</file>
+        <file>res/corpse/corpse_5.png</file>
+        <file>res/corpse/corpse_6.png</file>
+        <file>res/corpse/corpse_7.png</file>
+        <file>res/corpse/corpse_8.png</file>
+        <file>res/throwdog/throwdog_1.png</file>
+        <file>res/throwdog/throwdog_2.png</file>
+        <file>res/throwdog/throwdog_3.png</file>
+        <file>res/throwdog/throwdog_4.png</file>
+        <file>res/throwdog/throwdog_5.png</file>
+        <file>res/throwdog/throwdog_6.png</file>
+        <file>res/throwdog/throwdog_7.png</file>
+        <file>res/throwdog/throwdog_8.png</file>
+        <file>res/homepage/homepage_chick.png</file>
+        <file>res/homepage/homepage_collapse.png</file>
+        <file>res/homepage/homepage_corpse.png</file>
+        <file>res/homepage/homepage_friendship.png</file>
+        <file>res/homepage/homepage_penguin.png</file>
+        <file>res/homepage/homepage_throwdog.png</file>
     </qresource>
 </RCC>
