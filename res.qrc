@@ -32,5 +32,11 @@
         <file>res/move.png</file>
         <file>res/movebf.png</file>
         <file>res/reversal.png</file>
+        <file>res/newone.png</file>
+        <file>res/delete.png</file>
+        <file>res/big.png</file>
+        <file>res/middle.png</file>
+        <file>res/small.png</file>
+        <file>res/deleteAll.png</file>
     </qresource>
 </RCC>

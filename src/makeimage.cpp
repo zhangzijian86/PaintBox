@@ -4,8 +4,8 @@ MakeImage::MakeImage(QObject *parent):QObject(parent)
 {
 }
 
-QString MakeImage::makeStaticImage(int Bgwidht,int Bgheight,const QStringList &imgList){
-    QPixmap *pix=new QPixmap(QSize(Bgwidht/3,Bgheight/3));
+QString MakeImage::makeStaticImage(int size,int Bgwidht,int Bgheight,const QStringList &imgList){
+    QPixmap *pix=new QPixmap(QSize(Bgwidht/size,Bgheight/size));
     pix->fill(Qt::white);
     QPainter paint(pix);
     for(int i = 0; i<imgList.length();i++){
@@ -23,19 +23,19 @@ QString MakeImage::makeStaticImage(int Bgwidht,int Bgheight,const QStringList &i
 
         if(reversalTmp=="0"){
             if(rotatetTmp==""){
-                paint.drawPixmap(xTmp.toInt()/3,yTmp.toInt()/3,widhtTmp.toInt()/3,heightTmp.toInt()/3,QPixmap(urlTmp));
+                paint.drawPixmap(xTmp.toInt()/size,yTmp.toInt()/size,widhtTmp.toInt()/size,heightTmp.toInt()/size,QPixmap(urlTmp));
             }else{
                 QMatrix leftmatrix;
                 leftmatrix.rotate(rotatetTmp.toInt());
-                paint.drawPixmap(xTmp.toInt()/3,yTmp.toInt()/3,widhtTmp.toInt()/3,heightTmp.toInt()/3,QPixmap(urlTmp).transformed(leftmatrix,Qt::SmoothTransformation));
+                paint.drawPixmap(xTmp.toInt()/size,yTmp.toInt()/size,widhtTmp.toInt()/size,heightTmp.toInt()/size,QPixmap(urlTmp).transformed(leftmatrix,Qt::SmoothTransformation));
             }
         }else if(reversalTmp=="1"){
             if(rotatetTmp==""){
-                paint.drawPixmap(xTmp.toInt()/3,yTmp.toInt()/3,widhtTmp.toInt()/3,heightTmp.toInt()/3,QPixmap::fromImage(QImage(urlTmp).mirrored(true, false)));
+                paint.drawPixmap(xTmp.toInt()/size,yTmp.toInt()/size,widhtTmp.toInt()/size,heightTmp.toInt()/size,QPixmap::fromImage(QImage(urlTmp).mirrored(true, false)));
             }else{
                 QMatrix leftmatrix;
                 leftmatrix.rotate(rotatetTmp.toInt());
-                paint.drawPixmap(xTmp.toInt()/3,yTmp.toInt()/3,widhtTmp.toInt()/3,heightTmp.toInt()/3,QPixmap::fromImage(QImage(urlTmp).mirrored(true, false)).transformed(leftmatrix,Qt::SmoothTransformation));
+                paint.drawPixmap(xTmp.toInt()/size,yTmp.toInt()/size,widhtTmp.toInt()/size,heightTmp.toInt()/size,QPixmap::fromImage(QImage(urlTmp).mirrored(true, false)).transformed(leftmatrix,Qt::SmoothTransformation));
             }
         }
 

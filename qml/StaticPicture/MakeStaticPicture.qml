@@ -10,6 +10,7 @@ CPage {
     property int xflag:10
     property int yflag:10
     property int zflag:10
+    property int size:3
     property string imageUrl:""
     property alias  canvasObject :canvas
     property var childrens:[]
@@ -39,6 +40,7 @@ CPage {
                 text:"下一步"
                 onClicked:{
                     console.log("=下一步=");
+                    deleteFocus();
                     var i = 0;
                     var chieldImage;
                     var tmpStr = "";
@@ -71,8 +73,8 @@ CPage {
                         //                    childrens.splice(i,1);
                         //                    chieldImage.destroy();
                     }
-                    makeImage.makeStaticImage(canvas.width,canvas.height,passValue);
-                    passValue.splice(0,makeImage.length);
+                    makeImage.makeStaticImage(size,canvas.width,canvas.height,passValue);
+                    passValue.splice(0,passValue.length);
                 }
             }
             Image {
@@ -129,6 +131,119 @@ CPage {
                     anchors.fill: parent
                     onClicked: {
                         imageReversal();
+                    }
+                }
+            }
+            Image {
+                id: newoneImage
+                anchors.left: parent.left
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.leftMargin:50+(makeStaticPicture.width)/5
+                source:  "qrc:/res/newone.png";
+                MouseArea{
+                    anchors.fill: parent
+                    onClicked: {
+                        imageUrl = "";
+                        var i = 0;
+                        var chieldImage;
+                        var width = expression.width/4;
+                        var height = makeStaticPicture.height/13;
+                        var reversal = 0
+                        var rotation = 0;
+                        for(i=0;i<childrens.length;i++){
+                            chieldImage = childrens[i];
+                            if(chieldImage.focus==true){
+                                imageUrl = chieldImage.chield_url
+                                width = chieldImage.width
+                                height = chieldImage.height
+                                rotation = chieldImage.rotation
+                                reversal = chieldImage.chield_reversal
+                            }
+                        }
+                        if(imageUrl!=""){
+                            deleteFocus();
+                            var imageObj = Qt.createQmlObject(
+                            'import QtQuick 2.0;
+                               ChieldObject {
+                               chield_url: "'+imageUrl+'";
+                               width: '+width+';
+                               height: '+height+';
+                               parent_width: "'+canvas.height+'";
+                               parent_height: "'+canvas.height+'";
+                               chield_index: "'+flag+'";
+                               x: '+(canvas.width/2-width/2)+'
+                               y: '+(canvas.height/2-height/2)+'
+                               rotation: '+rotation+'
+                               chield_reversal: '+reversal+'
+                           }', canvasObject);
+                            childrens.push(imageObj);
+                            flag ++;
+                        }
+                    }
+                }
+            }
+            Image {
+                id: deleteImage
+                anchors.left: parent.left
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.leftMargin:50+(makeStaticPicture.width)*2/5
+                source:  "qrc:/res/delete.png";
+                MouseArea{
+                    anchors.fill: parent
+                    onClicked: {
+                        var i = 0;
+                        var chieldImage;
+                        for(i=0;i<childrens.length;i++){
+                            chieldImage = childrens[i];
+                            if(chieldImage.focus==true){
+                                childrens.splice(i,1);
+                                chieldImage.destroy();
+                            }
+                        }
+                    }
+                }
+            }
+
+            Image {
+                id: sizeImage
+                anchors.left: parent.left
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.leftMargin:50+(makeStaticPicture.width)*3/5
+                source:  "qrc:/res/middle.png";
+                MouseArea{
+                    anchors.fill: parent
+                    onClicked: {
+                        switch(size){
+                            case 2:
+                                size = 3;
+                                sizeImage.source = "qrc:/res/middle.png";
+                            break;
+                            case 3:
+                                size = 4;
+                                sizeImage.source = "qrc:/res/small.png";
+                            break;
+                            case 4:
+                                size = 2;
+                                sizeImage.source = "qrc:/res/big.png";
+                            break;
+                            default:
+                            break;
+                        }
+                    }
+                }
+            }
+
+            Image {
+                id: deleteAllImage
+                anchors.left: parent.left
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.leftMargin:50+(makeStaticPicture.width)*4/5
+                source:  "qrc:/res/deleteAll.png";
+                MouseArea{
+                    anchors.fill: parent
+                    onClicked: {
+                        deleteFocus();
+                        deleteAllDialog.show();
                     }
                 }
             }
@@ -194,8 +309,8 @@ CPage {
                     onClicked: {
                         imageUrl = expressionImage.source;
                         var imageObj = Qt.createQmlObject(
-                                    'import QtQuick 2.0;
-                       ChieldObject {
+                        'import QtQuick 2.0;
+                           ChieldObject {
                            chield_url: "'+imageUrl+'";
                            width: '+expressionImage.width+';
                            height: '+expressionImage.height+';
@@ -211,6 +326,28 @@ CPage {
                 }
             }
         }
+
+        CDialog{
+            id:deleteAllDialog
+            visible: false
+            titleText : "清空画布"
+            messageText:"是否清空画布？"
+            acceptedButtonText: "确定"
+            rejectButtonText: "取消"
+            onAccepted:{
+                console.log("=====deleteAllDialog=======确定======")
+                var i = 0;
+                var chieldImage;
+                var tmpStr = "";
+                for(i=0;i<childrens.length;i++){
+                    chieldImage = childrens[i];
+                    chieldImage.destroy();
+                }
+                passValue.splice(0,passValue.length);
+                childrens.splice(0,childrens.length);
+            }
+        }
+
         Component.onCompleted: {
             passValue.splice(0,makeImage.length);
             expressionModel.clear();

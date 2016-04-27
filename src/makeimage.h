@@ -13,7 +13,7 @@ class MakeImage : public QObject
 
 public:
     explicit MakeImage(QObject *parent = 0);
-    Q_INVOKABLE QString makeStaticImage(int Bgwidht,int Bgheight,const QStringList &imgList);
+    Q_INVOKABLE QString makeStaticImage(int size,int Bgwidht,int Bgheight,const QStringList &imgList);
     QString processingString(QString strTmp);
 };
 

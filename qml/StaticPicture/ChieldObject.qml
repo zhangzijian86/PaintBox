@@ -41,6 +41,7 @@ Rectangle{
 
     Image {
         id:expressionImage
+        mirror:chield_reversal==0?false:true
         source: chieldObj.chield_url;
         anchors.fill: parent
     }
