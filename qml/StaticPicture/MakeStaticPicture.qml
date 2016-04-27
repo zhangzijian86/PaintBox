@@ -374,20 +374,7 @@ CPage {
                     anchors.fill: parent
                     onClicked: {
                         imageUrl = expressionImage.source;
-                        var imageObj = Qt.createQmlObject(
-                        'import QtQuick 2.0;
-                           ChieldObject {
-                           chield_url: "'+imageUrl+'";
-                           width: '+expressionImage.width+';
-                           height: '+expressionImage.height+';
-                           parent_width: "'+canvas.height+'";
-                           parent_height: "'+canvas.height+'";
-                           chield_index: "'+flag+'";
-                           x: '+(canvas.width/2-expressionImage.width/2)+'
-                           y: '+(canvas.height/2-expressionImage.height/2)+'
-                       }', canvasObject);
-                        childrens.push(imageObj);
-                        flag ++;
+                        mainItem.creatObj(imageUrl,expressionImage.width,expressionImage.height);
                     }
                 }
             }
@@ -479,6 +466,24 @@ CPage {
                 }
             }
         }
+
+        function creatObj(sourceObj,widthObj,heightObj){
+            var imageObj = Qt.createQmlObject(
+            'import QtQuick 2.0;
+               ChieldObject {
+               chield_url: "'+sourceObj+'";
+               width: '+widthObj+';
+               height: '+heightObj+';
+               parent_width: "'+canvasObject.width+'";
+               parent_height: "'+canvasObject.height+'";
+               chield_index: "'+flag+'";
+               x: '+(canvasObject.width/2-widthObj/2)+'
+               y: '+(canvasObject.height/2-heightObj/2)+'
+           }', canvasObject);
+            childrens.push(imageObj);
+            flag ++;
+        }
+
         function changeModel(type){
             if(type=="基础"){
                 expressionModel.clear();
