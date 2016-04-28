@@ -16,7 +16,7 @@ CPage {
     property alias  canvasObject :canvas
     property var childrens:[]
     property var passValue:[]
-    property var nameValue:["expression-基础","corpse-僵尸","throwdog-扔狗","collapse-崩溃"]
+    property var nameValue:["expression-基础","corpse-僵尸","throwdog-扔狗","collapse-崩溃","friendship-友谊","penguin-企鹅","chick-小鸡"]
     signal deleteFocus();
     signal imageReversal();
     color: "#ffffff"
@@ -455,6 +455,36 @@ CPage {
                 expressionModel.append({image:"qrc:/res/collapse/collapse_6.png"});
                 expressionModel.append({image:"qrc:/res/collapse/collapse_7.png"});
                 expressionModel.append({image:"qrc:/res/collapse/collapse_8.png"});
+            }            
+            if(makeStaticPicture.materialType=="friendship-友谊"){
+                expressionModel.append({image:"qrc:/res/friendship/friendship_1.png"});
+                expressionModel.append({image:"qrc:/res/friendship/friendship_2.png"});
+                expressionModel.append({image:"qrc:/res/friendship/friendship_3.png"});
+                expressionModel.append({image:"qrc:/res/friendship/friendship_4.png"});
+                expressionModel.append({image:"qrc:/res/friendship/friendship_5.png"});
+                expressionModel.append({image:"qrc:/res/friendship/friendship_6.png"});
+                expressionModel.append({image:"qrc:/res/friendship/friendship_7.png"});
+                expressionModel.append({image:"qrc:/res/friendship/friendship_8.png"});
+            }
+            if(makeStaticPicture.materialType=="penguin-企鹅"){
+                expressionModel.append({image:"qrc:/res/penguin/penguin_1.png"});
+                expressionModel.append({image:"qrc:/res/penguin/penguin_2.png"});
+                expressionModel.append({image:"qrc:/res/penguin/penguin_3.png"});
+                expressionModel.append({image:"qrc:/res/penguin/penguin_4.png"});
+                expressionModel.append({image:"qrc:/res/penguin/penguin_5.png"});
+                expressionModel.append({image:"qrc:/res/penguin/penguin_6.png"});
+                expressionModel.append({image:"qrc:/res/penguin/penguin_7.png"});
+                expressionModel.append({image:"qrc:/res/penguin/penguin_8.png"});
+            }
+            if(makeStaticPicture.materialType=="chick-小鸡"){
+                expressionModel.append({image:"qrc:/res/chick/chick_1.png"});
+                expressionModel.append({image:"qrc:/res/chick/chick_2.png"});
+                expressionModel.append({image:"qrc:/res/chick/chick_3.png"});
+                expressionModel.append({image:"qrc:/res/chick/chick_4.png"});
+                expressionModel.append({image:"qrc:/res/chick/chick_5.png"});
+                expressionModel.append({image:"qrc:/res/chick/chick_6.png"});
+                expressionModel.append({image:"qrc:/res/chick/chick_7.png"});
+                expressionModel.append({image:"qrc:/res/chick/chick_8.png"});
             }
             var i =0
             var strOne = "";
@@ -528,6 +558,39 @@ CPage {
                 expressionModel.append({image:"qrc:/res/collapse/collapse_6.png"});
                 expressionModel.append({image:"qrc:/res/collapse/collapse_7.png"});
                 expressionModel.append({image:"qrc:/res/collapse/collapse_8.png"});
+            }
+            if(type=="友谊"){
+                expressionModel.clear();
+                expressionModel.append({image:"qrc:/res/friendship/friendship_1.png"});
+                expressionModel.append({image:"qrc:/res/friendship/friendship_2.png"});
+                expressionModel.append({image:"qrc:/res/friendship/friendship_3.png"});
+                expressionModel.append({image:"qrc:/res/friendship/friendship_4.png"});
+                expressionModel.append({image:"qrc:/res/friendship/friendship_5.png"});
+                expressionModel.append({image:"qrc:/res/friendship/friendship_6.png"});
+                expressionModel.append({image:"qrc:/res/friendship/friendship_7.png"});
+                expressionModel.append({image:"qrc:/res/friendship/friendship_8.png"});
+            }
+            if(type=="企鹅"){
+                expressionModel.clear();
+                expressionModel.append({image:"qrc:/res/penguin/penguin_1.png"});
+                expressionModel.append({image:"qrc:/res/penguin/penguin_2.png"});
+                expressionModel.append({image:"qrc:/res/penguin/penguin_3.png"});
+                expressionModel.append({image:"qrc:/res/penguin/penguin_4.png"});
+                expressionModel.append({image:"qrc:/res/penguin/penguin_5.png"});
+                expressionModel.append({image:"qrc:/res/penguin/penguin_6.png"});
+                expressionModel.append({image:"qrc:/res/penguin/penguin_7.png"});
+                expressionModel.append({image:"qrc:/res/penguin/penguin_8.png"});
+            }
+            if(type=="小鸡"){
+                expressionModel.clear();
+                expressionModel.append({image:"qrc:/res/chick/chick_1.png"});
+                expressionModel.append({image:"qrc:/res/chick/chick_2.png"});
+                expressionModel.append({image:"qrc:/res/chick/chick_3.png"});
+                expressionModel.append({image:"qrc:/res/chick/chick_4.png"});
+                expressionModel.append({image:"qrc:/res/chick/chick_5.png"});
+                expressionModel.append({image:"qrc:/res/chick/chick_6.png"});
+                expressionModel.append({image:"qrc:/res/chick/chick_7.png"});
+                expressionModel.append({image:"qrc:/res/chick/chick_8.png"});
             }
         }
     }

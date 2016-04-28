@@ -68,5 +68,29 @@
         <file>res/homepage/homepage_friendship.png</file>
         <file>res/homepage/homepage_penguin.png</file>
         <file>res/homepage/homepage_throwdog.png</file>
+        <file>res/chick/chick_1.png</file>
+        <file>res/chick/chick_2.png</file>
+        <file>res/chick/chick_3.png</file>
+        <file>res/chick/chick_4.png</file>
+        <file>res/chick/chick_5.png</file>
+        <file>res/chick/chick_6.png</file>
+        <file>res/chick/chick_7.png</file>
+        <file>res/chick/chick_8.png</file>
+        <file>res/friendship/friendship_1.png</file>
+        <file>res/friendship/friendship_2.png</file>
+        <file>res/friendship/friendship_3.png</file>
+        <file>res/friendship/friendship_4.png</file>
+        <file>res/friendship/friendship_5.png</file>
+        <file>res/friendship/friendship_6.png</file>
+        <file>res/friendship/friendship_7.png</file>
+        <file>res/friendship/friendship_8.png</file>
+        <file>res/penguin/penguin_1.png</file>
+        <file>res/penguin/penguin_2.png</file>
+        <file>res/penguin/penguin_3.png</file>
+        <file>res/penguin/penguin_4.png</file>
+        <file>res/penguin/penguin_5.png</file>
+        <file>res/penguin/penguin_6.png</file>
+        <file>res/penguin/penguin_7.png</file>
+        <file>res/penguin/penguin_8.png</file>
     </qresource>
 </RCC>

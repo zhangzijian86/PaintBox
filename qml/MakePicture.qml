@@ -133,7 +133,7 @@ Rectangle {
             MouseArea{
                 anchors.fill: parent
                 onClicked: {
-                    gToast.requestToast("素材收集中");
+                    mainPage.pageStack.push("qrc:/qml/StaticPicture/MakeStaticPicture.qml",{"materialType":"friendship-友谊"});
                 }
             }
         }
@@ -165,7 +165,7 @@ Rectangle {
             MouseArea{
                 anchors.fill: parent
                 onClicked: {
-                    gToast.requestToast("素材收集中");
+                    mainPage.pageStack.push("qrc:/qml/StaticPicture/MakeStaticPicture.qml",{"materialType":"penguin-企鹅"});
                 }
             }
         }
@@ -198,7 +198,7 @@ Rectangle {
             MouseArea{
                 anchors.fill: parent
                 onClicked: {
-                    gToast.requestToast("素材收集中");
+                    mainPage.pageStack.push("qrc:/qml/StaticPicture/MakeStaticPicture.qml",{"materialType":"chick-小鸡"});
                 }
             }
         }
