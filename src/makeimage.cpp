@@ -19,7 +19,7 @@ QString MakeImage::makeStaticImage(int size,int Bgwidht,int Bgheight,const QStri
         QString urlTmp = strlTmp.at(6);
         QString reversalTmp = strlTmp.at(7);
         urlTmp = urlTmp.mid(urlTmp.lastIndexOf("/"),urlTmp.length()-1);
-        urlTmp = ":res"+urlTmp;
+        urlTmp = ":res"+urlTmp.mid(0,urlTmp.lastIndexOf("_"))+urlTmp;
 
         if(reversalTmp=="0"){
             if(rotatetTmp==""){
@@ -38,11 +38,13 @@ QString MakeImage::makeStaticImage(int size,int Bgwidht,int Bgheight,const QStri
                 paint.drawPixmap(xTmp.toInt()/size,yTmp.toInt()/size,widhtTmp.toInt()/size,heightTmp.toInt()/size,QPixmap::fromImage(QImage(urlTmp).mirrored(true, false)).transformed(leftmatrix,Qt::SmoothTransformation));
             }
         }
-
         qDebug()<<"==urlTmp=="+ urlTmp;
     }
-    pix->save("./66.jpg");
-    return "111";
+    QDateTime current_date_time = QDateTime::currentDateTime();
+    QString current_date = current_date_time.toString("yyyyMMdd_hhmmss");
+    QString returnVlaue = "/data/home/user/DCIM/Camera/PaintBox_"+current_date+".jpg";
+    pix->save(returnVlaue);
+    return returnVlaue;
 }
 QString MakeImage::processingString(QString strTmp){
     QString returnValue = strTmp;

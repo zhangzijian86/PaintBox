@@ -6,6 +6,7 @@
 #include <QPixmap>
 #include <QImage>
 #include <QDebug>
+#include <QDateTime>
 
 class MakeImage : public QObject
 {

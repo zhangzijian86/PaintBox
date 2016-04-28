@@ -88,7 +88,8 @@ CPage {
                         //                    childrens.splice(i,1);
                         //                    chieldImage.destroy();
                     }
-                    makeImage.makeStaticImage(size,canvas.width,canvas.height,passValue);
+                    var returnStr = makeImage.makeStaticImage(size,canvas.width,canvas.height,passValue);
+                    console.log("====returnStr======="+returnStr);
                     passValue.splice(0,passValue.length);
                 }
             }
@@ -417,14 +418,14 @@ CPage {
             str = str.substring(str.indexOf("-")+1,str.length);
             typeModel.append({typeName:str,isSelected:"1"});
             if(makeStaticPicture.materialType=="expression-基础"){
-                expressionModel.append({image:"qrc:/res/expression_1.png"});
-                expressionModel.append({image:"qrc:/res/expression_2.png"});
-                expressionModel.append({image:"qrc:/res/expression_3.png"});
-                expressionModel.append({image:"qrc:/res/expression_4.png"});
-                expressionModel.append({image:"qrc:/res/expression_5.png"});
-                expressionModel.append({image:"qrc:/res/expression_6.png"});
-                expressionModel.append({image:"qrc:/res/expression_7.png"});
-                expressionModel.append({image:"qrc:/res/expression_8.png"});
+                expressionModel.append({image:"qrc:/res/expression/expression_1.png"});
+                expressionModel.append({image:"qrc:/res/expression/expression_2.png"});
+                expressionModel.append({image:"qrc:/res/expression/expression_3.png"});
+                expressionModel.append({image:"qrc:/res/expression/expression_4.png"});
+                expressionModel.append({image:"qrc:/res/expression/expression_5.png"});
+                expressionModel.append({image:"qrc:/res/expression/expression_6.png"});
+                expressionModel.append({image:"qrc:/res/expression/expression_7.png"});
+                expressionModel.append({image:"qrc:/res/expression/expression_8.png"});
             }
             if(makeStaticPicture.materialType=="corpse-僵尸"){
                 expressionModel.append({image:"qrc:/res/corpse/corpse_1.png"});
@@ -517,14 +518,14 @@ CPage {
         function changeModel(type){
             if(type=="基础"){
                 expressionModel.clear();
-                expressionModel.append({image:"qrc:/res/expression_1.png"});
-                expressionModel.append({image:"qrc:/res/expression_2.png"});
-                expressionModel.append({image:"qrc:/res/expression_3.png"});
-                expressionModel.append({image:"qrc:/res/expression_4.png"});
-                expressionModel.append({image:"qrc:/res/expression_5.png"});
-                expressionModel.append({image:"qrc:/res/expression_6.png"});
-                expressionModel.append({image:"qrc:/res/expression_7.png"});
-                expressionModel.append({image:"qrc:/res/expression_8.png"});
+                expressionModel.append({image:"qrc:/res/expression/expression_1.png"});
+                expressionModel.append({image:"qrc:/res/expression/expression_2.png"});
+                expressionModel.append({image:"qrc:/res/expression/expression_3.png"});
+                expressionModel.append({image:"qrc:/res/expression/expression_4.png"});
+                expressionModel.append({image:"qrc:/res/expression/expression_5.png"});
+                expressionModel.append({image:"qrc:/res/expression/expression_6.png"});
+                expressionModel.append({image:"qrc:/res/expression/expression_7.png"});
+                expressionModel.append({image:"qrc:/res/expression/expression_8.png"});
             }
             if(type=="僵尸"){
                 expressionModel.clear();

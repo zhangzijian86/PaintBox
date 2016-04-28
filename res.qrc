@@ -21,14 +21,6 @@
         <file>qml/main.qml</file>
         <file>res/modify.png</file>
         <file>res/rotate.png</file>
-        <file>res/expression_1.png</file>
-        <file>res/expression_2.png</file>
-        <file>res/expression_3.png</file>
-        <file>res/expression_4.png</file>
-        <file>res/expression_5.png</file>
-        <file>res/expression_6.png</file>
-        <file>res/expression_7.png</file>
-        <file>res/expression_8.png</file>
         <file>res/move.png</file>
         <file>res/movebf.png</file>
         <file>res/reversal.png</file>
@@ -92,5 +84,13 @@
         <file>res/penguin/penguin_6.png</file>
         <file>res/penguin/penguin_7.png</file>
         <file>res/penguin/penguin_8.png</file>
+        <file>res/expression/expression_1.png</file>
+        <file>res/expression/expression_2.png</file>
+        <file>res/expression/expression_3.png</file>
+        <file>res/expression/expression_4.png</file>
+        <file>res/expression/expression_5.png</file>
+        <file>res/expression/expression_6.png</file>
+        <file>res/expression/expression_7.png</file>
+        <file>res/expression/expression_8.png</file>
     </qresource>
 </RCC>
