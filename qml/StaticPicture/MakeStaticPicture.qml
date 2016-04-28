@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import com.syberos.basewidgets 2.0
 import com.syberos.makeimage 1.0
+import com.syberos.filemanager.filepicker 1.0
 import "./"
 
 CPage {
@@ -10,7 +11,7 @@ CPage {
     property int xflag:10
     property int yflag:10
     property int zflag:10
-    property int size:3
+    property int size:2
     property string imageUrl:""
     property string materialType:""
     property alias  canvasObject :canvas
@@ -52,9 +53,9 @@ CPage {
                 anchors.right: parent.right
                 anchors.rightMargin: 30
                 anchors.verticalCenter: parent.verticalCenter
-                text:"下一步"
+                text:"保存"
                 onClicked:{
-                    console.log("=下一步=");
+                    console.log("=保存=");
                     deleteFocus();
                     var i = 0;
                     var chieldImage;
@@ -69,6 +70,7 @@ CPage {
                         tmpStr = tmpStr +"="+ chieldImage.chield_rotate;
                         tmpStr = tmpStr +"="+ chieldImage.chield_url;
                         tmpStr = tmpStr +"="+ chieldImage.chield_reversal;
+                        tmpStr = tmpStr +"="+ chieldImage.chield_imagetype;
                         console.log("==="+i+"==index="+chieldImage.chield_index);
                         console.log("==="+i+"==x="+((chieldImage.chield_x - (chieldImage.width/2)*(chieldImage.countScale-1))));
                         console.log("==="+i+"==y="+((chieldImage.chield_y - (chieldImage.height/2)*(chieldImage.countScale-1))));
@@ -78,6 +80,7 @@ CPage {
                         console.log("==="+i+"==url="+chieldImage.chield_url);
                         console.log("==="+i+"==focus="+chieldImage.focus);
                         console.log("==="+i+"==chield_reversal="+chieldImage.chield_reversal);
+                        console.log("==="+i+"==chield_imagetype="+chieldImage.chield_imagetype);
                         console.log("==="+i+"==tmpStr="+tmpStr);
                         passValue.push(tmpStr);
                         tmpStr = "";
@@ -188,6 +191,7 @@ CPage {
                                parent_width: "'+canvas.height+'";
                                parent_height: "'+canvas.height+'";
                                chield_index: "'+flag+'";
+                               chield_imagetype: 0;
                                x: '+(canvas.width/2-width/2)+'
                                y: '+(canvas.height/2-height/2)+'
                                rotation: '+rotation+'
@@ -226,7 +230,7 @@ CPage {
                 anchors.left: parent.left
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.leftMargin:50+(makeStaticPicture.width)*3/5
-                source:  "qrc:/res/middle.png";
+                source:  "qrc:/res/big.png";
                 MouseArea{
                     anchors.fill: parent
                     onClicked: {
@@ -293,6 +297,57 @@ CPage {
                 orientation: ListView.Horizontal
                 model:typeModel
                 delegate: typeDelegate
+            }
+
+            Image {
+                id: selectImage
+                anchors.right: parent.right
+                width: 60
+                height: 60
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.rightMargin:30
+                source:  "qrc:/res/selectimage.png";
+                MouseArea{
+                    anchors.fill: parent
+                    onClicked: {
+                        console.log("========selectImage========");
+                        mainPage.pageStack.push(filesPickerCom)
+                    }
+                }
+            }
+            Image {
+                id: addfontImage
+                anchors.right: parent.right
+                width: 60
+                height: 60
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.rightMargin:110
+                source:  "qrc:/res/addfont.png";
+                MouseArea{
+                    anchors.fill: parent
+                    onClicked: {
+                        console.log("========addfontImage========");
+                    }
+                }
+            }
+        }
+
+        Component{
+            id: filesPickerCom
+            SyberosFilesPicker{
+                id: filesPicker
+                onOk:{
+                    console.log("========filesPickerCom=========00=====");
+                    for(var j = 0; j < filesPicker.filesPath.length; j++){
+                        console.log("========filesPickerCom=========11====="+filesPicker.filesPath[j]);
+                        if(j==0){
+                            mainItem.creatObj("file:/"+filesPicker.filesPath[j],mainItem.width/4,mainItem.height/13,"1");
+                        }else{
+                            gToast.requestToast("只保留多张图片的第一张");
+                            break;
+                        }
+                    }
+                }
             }
         }
 
@@ -375,7 +430,7 @@ CPage {
                     anchors.fill: parent
                     onClicked: {
                         imageUrl = expressionImage.source;
-                        mainItem.creatObj(imageUrl,expressionImage.width,expressionImage.height);
+                        mainItem.creatObj(imageUrl,expressionImage.width,expressionImage.height,"0");
                     }
                 }
             }
@@ -498,7 +553,7 @@ CPage {
             }
         }
 
-        function creatObj(sourceObj,widthObj,heightObj){
+        function creatObj(sourceObj,widthObj,heightObj,imageType){
             var imageObj = Qt.createQmlObject(
             'import QtQuick 2.0;
                ChieldObject {
@@ -508,6 +563,7 @@ CPage {
                parent_width: "'+canvasObject.width+'";
                parent_height: "'+canvasObject.height+'";
                chield_index: "'+flag+'";
+               chield_imagetype: "'+imageType+'";
                x: '+(canvasObject.width/2-widthObj/2)+'
                y: '+(canvasObject.height/2-heightObj/2)+'
            }', canvasObject);

@@ -92,5 +92,7 @@
         <file>res/expression/expression_6.png</file>
         <file>res/expression/expression_7.png</file>
         <file>res/expression/expression_8.png</file>
+        <file>res/selectimage.png</file>
+        <file>res/addfont.png</file>
     </qresource>
 </RCC>

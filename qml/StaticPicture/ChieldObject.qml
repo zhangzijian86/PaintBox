@@ -9,6 +9,7 @@ Rectangle{
     property string chield_x:""
     property string chield_y:""
     property string chield_rotate:""
+    property string chield_imagetype:""
     property int pressFlag:0
     property int countFlag:0
     property real countScale:1.0
@@ -44,6 +45,7 @@ Rectangle{
         mirror:chield_reversal==0?false:true
         source: chieldObj.chield_url;
         anchors.fill: parent
+        anchors.margins: 2
     }
 
     onFocusChanged: {

@@ -18,8 +18,14 @@ QString MakeImage::makeStaticImage(int size,int Bgwidht,int Bgheight,const QStri
         QString rotatetTmp = this->processingString(strlTmp.at(5));
         QString urlTmp = strlTmp.at(6);
         QString reversalTmp = strlTmp.at(7);
-        urlTmp = urlTmp.mid(urlTmp.lastIndexOf("/"),urlTmp.length()-1);
-        urlTmp = ":res"+urlTmp.mid(0,urlTmp.lastIndexOf("_"))+urlTmp;
+        QString imagetypeTmp = strlTmp.at(8);
+
+        if(imagetypeTmp=="0"){
+            urlTmp = urlTmp.mid(urlTmp.lastIndexOf("/"),urlTmp.length()-1);
+            urlTmp = ":res"+urlTmp.mid(0,urlTmp.lastIndexOf("_"))+urlTmp;
+        }else{
+            urlTmp = urlTmp.replace("file:/","");
+        }
 
         if(reversalTmp=="0"){
             if(rotatetTmp==""){
@@ -49,6 +55,6 @@ QString MakeImage::makeStaticImage(int size,int Bgwidht,int Bgheight,const QStri
 QString MakeImage::processingString(QString strTmp){
     QString returnValue = strTmp;
     returnValue = returnValue.left(returnValue.trimmed().indexOf("."));
-    qDebug()<<"=processingString=returnValue=="+returnValue;
+//    qDebug()<<"=processingString=returnValue=="+returnValue;
     return returnValue;
 }
