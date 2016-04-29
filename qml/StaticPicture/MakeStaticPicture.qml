@@ -93,6 +93,10 @@ CPage {
                     }
                     var returnStr = makeImage.makeStaticImage(size,canvas.width,canvas.height,passValue);
                     console.log("====returnStr======="+returnStr);
+                    if(returnStr!=""){
+                        mainPage.pageStack.pop();
+                    }
+
                     passValue.splice(0,passValue.length);
                 }
             }
@@ -327,6 +331,7 @@ CPage {
                     anchors.fill: parent
                     onClicked: {
                         console.log("========addfontImage========");
+                        gToast.requestToast("添加文字功能构建中");
                     }
                 }
             }

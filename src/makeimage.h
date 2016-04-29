@@ -2,11 +2,16 @@
 #define MAKEIMAGE_H
 
 #include <QObject>
+#include <QFileInfoList>
+#include <QFileInfo>
+#include <QDateTime>
 #include <QPainter>
 #include <QPixmap>
 #include <QImage>
 #include <QDebug>
-#include <QDateTime>
+#include <QDir>
+
+
 
 class MakeImage : public QObject
 {
@@ -15,6 +20,7 @@ class MakeImage : public QObject
 public:
     explicit MakeImage(QObject *parent = 0);
     Q_INVOKABLE QString makeStaticImage(int size,int Bgwidht,int Bgheight,const QStringList &imgList);
+    Q_INVOKABLE QString getAllImages();
     QString processingString(QString strTmp);
 };
 

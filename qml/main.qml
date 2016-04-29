@@ -20,6 +20,7 @@ CPageStackWindow {
 
             Rectangle{
                 id: top
+                z:10
                 width: parent.width
                 height: parent.height/10
                 anchors.top: parent.top
