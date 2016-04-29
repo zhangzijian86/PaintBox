@@ -43,7 +43,7 @@ Rectangle {
                 anchors.top: search4BigText.bottom
                 anchors.topMargin: 17
                 anchors.horizontalCenter: parent.horizontalCenter
-                color: "#e2e2e2"
+                color: "#adadad"
                 font.pixelSize: 28
                 text:"每周更新，贴纸送\"到家\""
             }
@@ -89,7 +89,7 @@ Rectangle {
                 anchors.top: search5BigText.bottom
                 anchors.topMargin: 17
                 anchors.horizontalCenter: parent.horizontalCenter
-                color: "#e2e2e2"
+                color: "#adadad"
                 font.pixelSize: 28
                 text:"朋友私信和系统通知"
             }
