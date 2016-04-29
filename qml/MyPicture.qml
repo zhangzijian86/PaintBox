@@ -14,6 +14,18 @@ Rectangle {
         MakeImage{
             id:makeImage
         }
+
+        Image{
+            id:noImage
+            visible: false
+            anchors.top: parent.top
+            anchors.topMargin: 30
+            height:myPicture.height*8/14+30
+            width:myPicture.width-100
+            source:"qrc:/res/noimage.jpg"
+            anchors.horizontalCenter: parent.horizontalCenter
+        }
+
         ListView{
             anchors.top:parent.top
             anchors.topMargin: 30
@@ -61,7 +73,7 @@ Rectangle {
                         anchors.fill: parent
                         onClicked: {
                             console.log("======modifyImage======="+imageName);
-                            gToast.requestToast("改图功能开发中");
+                            mainPage.pageStack.push("qrc:/qml/StaticPicture/MakeStaticModifyPicture.qml",{"imageName":imageName});
                         }
                     }
                 }
@@ -100,6 +112,7 @@ Rectangle {
             var returnValue = makeImage.getAllImages();
             if(returnValue==""){
                 console.log("========getAll====null========");
+                noImage.visible = true;
             }else{
                 var imageNameText = "";
                 console.log("==returnValue=="+returnValue)

@@ -95,5 +95,10 @@
         <file>res/selectimage.png</file>
         <file>res/addfont.png</file>
         <file>res/modifyimage.png</file>
+        <file>res/noimage.jpg</file>
+        <file>qml/StaticPicture/MakeStaticModifyPicture.qml</file>
+        <file>qml/StaticPicture/ChieldObject20160425.qml</file>
+        <file>qml/StaticPicture/ChieldObjectModify.qml</file>
+        <file>qml/StaticPicture/MakeStaticPicture-20160425.qml</file>
     </qresource>
 </RCC>
