@@ -23,6 +23,7 @@ public:
     explicit MakeImage(QObject *parent = 0);
     Q_INVOKABLE QString makeStaticImage(int size,int Bgwidht,int Bgheight,const QStringList &imgList);
     Q_INVOKABLE QString getAllImages();
+    Q_INVOKABLE QString getModifyImages(QString imageName);
     Q_INVOKABLE bool deleteImage(QString imageName);
     QString processingString(QString strTmp);
 };

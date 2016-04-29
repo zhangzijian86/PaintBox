@@ -463,6 +463,8 @@ CPage {
         }
 
         Component.onCompleted: {
+            var returnValue = makeImage.getModifyImages(imageName);
+            console.log("==returnValue=="+returnValue);
             passValue.splice(0,makeImage.length);
             expressionModel.clear();
             typeModel.clear();

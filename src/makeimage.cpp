@@ -21,6 +21,34 @@ bool MakeImage::deleteImage(QString imageName){
     return returnBool;
 }
 
+
+QString MakeImage::getModifyImages(QString imageName){
+    QString returnStr = "";
+    QString path;
+    QDir dir;
+    path=dir.currentPath();
+    qDebug()<<"==path=="+ path;
+    qDebug()<<"==path=="+ (path+"/"+imageName+"/"+imageName+".txt");
+    QFile f(path+"/"+imageName+"/"+imageName+".txt");
+    if(!f.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        qDebug()<<"=Open failed=";
+        return "error";
+    }
+
+    QTextStream txtInput(&f);
+    QString lineStr;
+    while(!txtInput.atEnd())
+    {
+        lineStr = txtInput.readLine();
+        returnStr = returnStr + lineStr + "-";
+        qDebug()<<"=lineStr="<< lineStr << endl;
+    }
+
+    f.close();
+    return returnStr;
+}
+
 QString MakeImage::getAllImages(){
     QString returnStr = "";
     QString path;
