@@ -8,6 +8,7 @@ Rectangle {
     height: 500
     property var images:[]
     Rectangle{
+        id:myPictureMain
         anchors.fill: parent
         color: "#e2e2e2"
         MakeImage{
@@ -46,10 +47,40 @@ Rectangle {
                     width:parent.width
                     source:image
                     anchors.horizontalCenter: parent.horizontalCenter
+                }
+                Image{
+                    id:modifyImage
+                    anchors.bottom: expressionImage.bottom
+                    anchors.bottomMargin: 20
+                    anchors.left: expressionImage.left
+                    anchors.leftMargin:expressionImage.width/3
+                    height:50
+                    width:90
+                    source:"qrc:/res/modifyimage.png"
                     MouseArea{
                         anchors.fill: parent
                         onClicked: {
-                            console.log("============="+imageName);
+                            console.log("======modifyImage======="+imageName);
+                            gToast.requestToast("改图功能开发中");
+                        }
+                    }
+                }
+                Image{
+                    id:deleteImage
+                    anchors.right: expressionImage.right
+                    anchors.rightMargin:expressionImage.width/3
+                    anchors.verticalCenter: modifyImage.verticalCenter
+                    height:75
+                    width:75
+                    source:"qrc:/res/delete.png"
+                    MouseArea{
+                        anchors.fill: parent
+                        onClicked: {
+                            console.log("======deleteImage======="+imageName);
+                            var returnValue = makeImage.deleteImage(imageName);
+                            if(returnValue == true){
+                                myPictureMain.getAll();
+                            }
                         }
                     }
                 }
@@ -63,22 +94,31 @@ Rectangle {
                 }
             }
         }
-        Component.onCompleted: {
+
+        function getAll(){
             expressionModel.clear();
             var returnValue = makeImage.getAllImages();
-            var imageNameText = "";
-            console.log("==returnValue=="+returnValue)
-            images = returnValue.toString().split("=");
-            var i = 0;
-            for(i = 0;i<images.length;i++){
-                console.log("==returnValue=0="+images[i])
-                if(images[i].toString()!=""){
-                    console.log("==returnValue=1="+i+"file:"+images[i].toString())
-                    imageNameText = images[i].toString().substring(images[i].toString().indexOf("/data/data/com.pg.PaintBox/")+"/data/data/com.pg.PaintBox/".length,images[i].length-4);
-                    console.log("==imageNameText=="+imageNameText)
-                    expressionModel.append({image:("file:"+images[i].toString()),imageName:imageNameText});
+            if(returnValue==""){
+                console.log("========getAll====null========");
+            }else{
+                var imageNameText = "";
+                console.log("==returnValue=="+returnValue)
+                images = returnValue.toString().split("=");
+                var i = 0;
+                for(i = 0;i<images.length;i++){
+                    console.log("==returnValue=0="+images[i])
+                    if(images[i].toString()!=""){
+                        console.log("==returnValue=1="+i+"file:"+images[i].toString())
+                        imageNameText = images[i].toString().substring(images[i].toString().indexOf("/data/data/com.pg.PaintBox/")+"/data/data/com.pg.PaintBox/".length,images[i].length-4);
+                        console.log("==imageNameText=="+imageNameText)
+                        expressionModel.append({image:("file:"+images[i].toString()),imageName:imageNameText});
+                    }
                 }
             }
+        }
+
+        Component.onCompleted: {
+            getAll();
         }
     }
 }

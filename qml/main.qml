@@ -59,7 +59,7 @@ CPageStackWindow {
                         anchors.top: parent.top
                         anchors.topMargin: parent.height/6
                         anchors.horizontalCenter: parent.horizontalCenter
-                        source: "qrc:/res/searchOn.png"
+                        source: "qrc:/res/searchOff.png"
                     }
                     MouseArea{
                         anchors.fill: parent
@@ -82,7 +82,7 @@ CPageStackWindow {
                         anchors.bottom: parent.bottom
                         anchors.bottomMargin: parent.height/6
                         anchors.horizontalCenter: parent.horizontalCenter
-                        source: "qrc:/res/makeOff.png"
+                        source: "qrc:/res/makeOn.png"
                     }
                     MouseArea{
                         anchors.fill: parent
@@ -118,7 +118,7 @@ CPageStackWindow {
             }
 
             Component.onCompleted: {
-                var com = Qt.createComponent("qrc:/qml/SearchPicture.qml");
+                var com = Qt.createComponent("qrc:/qml/MakePicture.qml");
                 if(com.status == Component.Ready){
                     mainItem.content = com.createObject(mainItem);
                     mainItem.content.anchors.top =  top.bottom;

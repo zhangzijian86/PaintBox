@@ -4,6 +4,23 @@ MakeImage::MakeImage(QObject *parent):QObject(parent)
 {
 }
 
+bool MakeImage::deleteImage(QString imageName){
+    bool returnBool = true;
+    QString path;
+    QDir dir;
+    path=dir.currentPath();
+    qDebug()<<"=deleteImage=path=0="+ (path+"/"+imageName+"/");
+    qDebug()<<"=deleteImage=path=1="+ (path+"/"+imageName+".jpg");
+    qDebug()<<"=deleteImage=path=rm="+ ("rm -rf "+path+"/"+imageName+"*");
+    QString cmd = "";
+    cmd = "rm -rf "+path+"/"+imageName+"*";
+    char*  ch;
+    QByteArray ba = cmd.toLatin1();
+    ch=ba.data();
+    system(ch);
+    return returnBool;
+}
+
 QString MakeImage::getAllImages(){
     QString returnStr = "";
     QString path;
@@ -26,7 +43,6 @@ QString MakeImage::getAllImages(){
     }
     return returnStr;
 }
-
 
 QString MakeImage::makeStaticImage(int size,int Bgwidht,int Bgheight,const QStringList &imgList){
     QString nameTmp = "";
@@ -56,7 +72,7 @@ QString MakeImage::makeStaticImage(int size,int Bgwidht,int Bgheight,const QStri
     }
 
     QFile file(pathTmp+"/"+nameTmp+".txt");
-    if (!file.open(QIODevice::WriteOnly|QIODevice::Text)) {
+    if (!file.open(QIODevice::ReadWrite|QIODevice::Text)) {
         qDebug()<<"<<<<无法创建文件";
         return "error";
     }

@@ -94,5 +94,6 @@
         <file>res/expression/expression_8.png</file>
         <file>res/selectimage.png</file>
         <file>res/addfont.png</file>
+        <file>res/modifyimage.png</file>
     </qresource>
 </RCC>
