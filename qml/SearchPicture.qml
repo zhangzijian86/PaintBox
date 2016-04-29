@@ -7,22 +7,22 @@ Rectangle {
     Rectangle{
         id:myPictureMain
         anchors.fill: parent
-        color: "#ffffff"
+        color: "#e1f8f6"
         Rectangle{
             id:search4Rectangle
             height:myPictureMain.height*2/14+30
             width:myPictureMain.width-100
             anchors.top: parent.top
             anchors.topMargin: 80
-            color: "#ffffff"
+            color: "#e1f8f6"
             anchors.horizontalCenter: parent.horizontalCenter
             Image{
                 id:search4Image
                 anchors.left:parent.left
                 anchors.leftMargin: 30
                 anchors.verticalCenter: parent.verticalCenter
-                height:150
-                width:150
+                height:130
+                width:130
                 source: "qrc:/res/serach/search_4.png";
             }
             Text {
@@ -60,15 +60,15 @@ Rectangle {
             width:myPictureMain.width-100
             anchors.top: search4Rectangle.bottom
             anchors.topMargin: 50
-            color: "#ffffff"
+            color: "#e1f8f6"
             anchors.horizontalCenter: parent.horizontalCenter
             Image{
                 id:search5Image
                 anchors.left:parent.left
                 anchors.leftMargin: 30
                 anchors.verticalCenter: parent.verticalCenter
-                height:150
-                width:150
+                height:130
+                width:130
                 source: "qrc:/res/serach/search_5.png";
             }
             Text {

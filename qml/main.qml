@@ -47,7 +47,7 @@ CPageStackWindow {
                 Rectangle{
                     width: parent.height-parent.height/4
                     height: parent.height
-                    color: "#ffffff"
+                    color: "#e2e2e2"
                     anchors.top: parent.top
                     anchors.bottom: parent.bottom
                     anchors.left: parent.left
@@ -71,7 +71,7 @@ CPageStackWindow {
                 Rectangle{
                     width: parent.height-parent.height/4
                     height: parent.height
-                    color: "#ffffff"
+                    color: "#e2e2e2"
                     anchors.top: parent.top
                     anchors.bottom: parent.bottom
                     anchors.horizontalCenter: parent.horizontalCenter
@@ -94,7 +94,7 @@ CPageStackWindow {
                 Rectangle{
                     width: parent.height-parent.height/4
                     height: parent.height
-                    color: "#ffffff"
+                    color: "#e2e2e2"
                     anchors.top: parent.top
                     anchors.bottom: parent.bottom
                     anchors.right: parent.right
