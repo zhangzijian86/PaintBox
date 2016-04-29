@@ -10,7 +10,7 @@ Rectangle {
     Rectangle{
         id:myPictureMain
         anchors.fill: parent
-        color: "#e2e2e2"
+        color: "#e1f8f6"
         MakeImage{
             id:makeImage
         }
@@ -102,7 +102,7 @@ Rectangle {
                     anchors.left: parent.left
                     width:parent.width
                     height: 30
-                    color: "#e2e2e2"
+                    color: "#e1f8f6"
                 }
             }
         }

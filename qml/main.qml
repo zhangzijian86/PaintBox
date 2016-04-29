@@ -43,7 +43,7 @@ CPageStackWindow {
                 width: parent.width
                 height: parent.height/10
                 anchors.bottom: parent.bottom
-                color: "#ffffff"
+                color: "#e2e2e2"
                 Rectangle{
                     width: parent.height-parent.height/4
                     height: parent.height

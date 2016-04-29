@@ -100,5 +100,10 @@
         <file>qml/StaticPicture/ChieldObject20160425.qml</file>
         <file>qml/StaticPicture/ChieldObjectModify.qml</file>
         <file>qml/StaticPicture/MakeStaticPicture-20160425.qml</file>
+        <file>res/serach/search_1.png</file>
+        <file>res/serach/search_2.png</file>
+        <file>res/serach/search_3.png</file>
+        <file>res/serach/search_4.png</file>
+        <file>res/serach/search_5.png</file>
     </qresource>
 </RCC>
