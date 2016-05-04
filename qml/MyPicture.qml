@@ -68,6 +68,7 @@ Rectangle {
                     height:parent.height-30
                     width:parent.width
                     source:image
+                    cache: false
                     anchors.horizontalCenter: parent.horizontalCenter
                 }
                 Image{
