@@ -565,6 +565,9 @@ CPage {
                     var imagetypeTmp = "0";
                     imagetypeTmp = returnValuesOne[8];
 
+                    var parentheightTmp = makeStaticPicture.height*8/14
+                    var parentwidthTmp = makeStaticPicture.width
+
                     var imageObj = Qt.createQmlObject(
                     'import QtQuick 2.0;
                        ChieldObjectModify {
@@ -574,8 +577,8 @@ CPage {
                        width: '+widthTmp+';
                        height: '+heightTmp+';
                        oldType: 0;
-                       parent_width: "'+canvasObject.width+'";
-                       parent_height: "'+canvasObject.height+'";
+                       parent_width: "'+parentheightTmp+'";
+                       parent_height: "'+parentwidthTmp+'";
                        chield_url: "'+urlTmp+'";
                        chield_reversal: '+reversal+';
                        chield_imagetype: "'+imagetypeTmp+'";

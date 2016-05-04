@@ -174,5 +174,7 @@ Rectangle{
         console.log("=========chieldObj.height===="+chieldObj.height);
         console.log("=========yuan_x===="+(x+chieldObj.width));
         console.log("=========yuan_y===="+(y+chieldObj.height));
+        console.log("=========parent_width===="+parent_width);
+        console.log("=========parent_height===="+parent_height);
     }
 }
