@@ -7,6 +7,7 @@ Rectangle {
     width: 500
     height: 500
     property var images:[]
+
     Rectangle{
         id:myPictureMain
         anchors.fill: parent
@@ -15,13 +16,22 @@ Rectangle {
             id:makeImage
         }
 
+        Connections{
+            target: mainPage
+            onModifyFocus:{
+                console.log("====getAll=====0===");
+                myPictureMain.getAll();
+                console.log("====getAll=====1===");
+            }
+         }
+
         Image{
             id:noImage
             visible: false
             anchors.top: parent.top
             anchors.topMargin: 30
-            height:myPicture.height*8/14+30
-            width:myPicture.width-100
+            height:myPicture.height*7/14
+            width:myPicture.width-150
             source:"qrc:/res/noimage.jpg"
             anchors.horizontalCenter: parent.horizontalCenter
         }
@@ -131,7 +141,9 @@ Rectangle {
         }
 
         Component.onCompleted: {
+            console.log("=====onCompleted===00==");
             getAll();
+            console.log("=====onCompleted===11==");
         }
     }
 }

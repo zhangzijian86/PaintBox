@@ -41,7 +41,7 @@ QString MakeImage::getModifyImages(QString imageName){
     while(!txtInput.atEnd())
     {
         lineStr = txtInput.readLine();
-        returnStr = returnStr + lineStr + "-";
+        returnStr = returnStr + lineStr + "+";
         qDebug()<<"=lineStr="<< lineStr << endl;
     }
 
@@ -173,6 +173,95 @@ QString MakeImage::makeStaticImage(int size,int Bgwidht,int Bgheight,const QStri
 
     return returnStr;
 }
+
+QString MakeImage::makeStaticModifyImage(QString imageName,int size,int Bgwidht,int Bgheight,const QStringList &imgList){
+
+    QString path;
+    QDir dir;
+    path=dir.currentPath();
+    QString cmd = "";
+    cmd = "rm -rf "+path+"/"+imageName+".jpg;"+"rm -rf "+path+"/"+imageName+"/"+imageName+".txt";
+    qDebug()<<"==cmd=="+ cmd;
+    QString returnStr = "/data/home/user/DCIM/Camera/"+imageName+".jpg";
+    QString localSaveStr = path+"/"+imageName+".jpg";
+
+    char*  ch;
+    QByteArray ba = cmd.toLatin1();
+    ch=ba.data();
+    system(ch);
+
+    QFile file(path+"/"+imageName+"/"+imageName+".txt");
+    if (!file.open(QIODevice::ReadWrite|QIODevice::Text)) {
+        qDebug()<<"<<<<无法创建文件";
+        return "error";
+    }
+    QTextStream out(&file);
+
+    QPixmap *pix=new QPixmap(QSize(Bgwidht/size,Bgheight/size));
+    pix->fill(Qt::white);
+    QPainter paint(pix);
+    for(int i = 0; i<imgList.length();i++){
+        QString strTmp=imgList.at(i);
+
+        QStringList strlTmp = strTmp.split("=");
+        QString xTmp = this->processingString(strlTmp.at(1));
+        QString yTmp = this->processingString(strlTmp.at(2));
+        QString widhtTmp = this->processingString(strlTmp.at(3));
+        QString heightTmp = this->processingString(strlTmp.at(4));
+        QString rotatetTmp = this->processingString(strlTmp.at(5));
+        QString urlTmp = strlTmp.at(6);
+        QString reversalTmp = strlTmp.at(7);
+        QString imagetypeTmp = strlTmp.at(8);
+
+        if(imagetypeTmp=="0"){
+            urlTmp = urlTmp.mid(urlTmp.lastIndexOf("/"),urlTmp.length()-1);
+            urlTmp = ":res"+urlTmp.mid(0,urlTmp.lastIndexOf("_"))+urlTmp;
+            out<<strTmp<<endl;
+        }else{
+            QString outImageName = "";
+            QString outImageUrl = "";
+            outImageName = urlTmp.mid(urlTmp.lastIndexOf("/"),urlTmp.length()-1);
+            outImageUrl = path+"/"+imageName+""+outImageName;
+            qDebug()<<"==outImageUrl=="+ outImageUrl;
+            out<<strTmp.replace(urlTmp,outImageUrl)<<endl;
+            urlTmp = urlTmp.replace("file:","");
+            qDebug()<<"==strTmp.replace(urlTmp,outImageUrl)=="+ strTmp.replace(urlTmp,outImageUrl);
+            qDebug()<<"==urlTmp=="+ urlTmp;
+            qDebug()<<"==outImageUrl=="+ outImageUrl;
+            if(!QFile::copy(urlTmp, outImageUrl))
+            {
+                 qDebug()<<"拷贝失败";
+            }
+        }
+
+        if(reversalTmp=="0"){
+            if(rotatetTmp==""){
+                paint.drawPixmap(xTmp.toInt()/size,yTmp.toInt()/size,widhtTmp.toInt()/size,heightTmp.toInt()/size,QPixmap(urlTmp));
+            }else{
+                QMatrix leftmatrix;
+                leftmatrix.rotate(rotatetTmp.toInt());
+                paint.drawPixmap(xTmp.toInt()/size,yTmp.toInt()/size,widhtTmp.toInt()/size,heightTmp.toInt()/size,QPixmap(urlTmp).transformed(leftmatrix,Qt::SmoothTransformation));
+            }
+        }else if(reversalTmp=="1"){
+            if(rotatetTmp==""){
+                paint.drawPixmap(xTmp.toInt()/size,yTmp.toInt()/size,widhtTmp.toInt()/size,heightTmp.toInt()/size,QPixmap::fromImage(QImage(urlTmp).mirrored(true, false)));
+            }else{
+                QMatrix leftmatrix;
+                leftmatrix.rotate(rotatetTmp.toInt());
+                paint.drawPixmap(xTmp.toInt()/size,yTmp.toInt()/size,widhtTmp.toInt()/size,heightTmp.toInt()/size,QPixmap::fromImage(QImage(urlTmp).mirrored(true, false)).transformed(leftmatrix,Qt::SmoothTransformation));
+            }
+        }
+    }
+
+    pix->save(returnStr);
+    pix->save(localSaveStr);
+
+    out.flush();
+    file.close();
+
+    return returnStr;
+}
+
 QString MakeImage::processingString(QString strTmp){
     QString returnValue = strTmp;
     returnValue = returnValue.left(returnValue.trimmed().indexOf("."));

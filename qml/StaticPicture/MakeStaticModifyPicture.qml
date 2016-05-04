@@ -17,6 +17,8 @@ CPage {
     property alias  canvasObject :canvas
     property var childrens:[]
     property var passValue:[]
+    property var returnValues:[]
+    property var returnValuesOne:[]
     property var nameValue:["expression-基础","corpse-僵尸","throwdog-扔狗","collapse-崩溃","friendship-友谊","penguin-企鹅","chick-小鸡"]
     signal deleteFocus();
     signal imageReversal();
@@ -85,11 +87,12 @@ CPage {
                         passValue.push(tmpStr);
                         tmpStr = "";
                     }
-                    var returnStr = makeImage.makeStaticImage(size,canvas.width,canvas.height,passValue);
+                    var returnStr = makeImage.makeStaticModifyImage(imageName,size,canvas.width,canvas.height,passValue);
+                    passValue.splice(0,passValue.length);
+                    mainPage.modifyFocus();
                     if(returnStr!=""){
                         mainPage.pageStack.pop();
                     }
-                    passValue.splice(0,passValue.length);
                 }
             }
             Image {
@@ -192,7 +195,7 @@ CPage {
                                y: '+(canvas.height/2-height/2)+'
                                rotation: '+rotation+'
                                chield_reversal: '+reversal+'
-                               oldType: 0;
+                               oldType: 1;
                            }', canvasObject);
                             childrens.push(imageObj);
                             flag ++;
@@ -483,6 +486,105 @@ CPage {
                 strOne = strOne.substring(strOne.indexOf("-")+1,strOne.length);
                 typeModel.append({typeName:strOne,isSelected:"0"});
             }
+
+            returnValues = returnValue.toString().split("+");
+
+            var strTmp = "";
+            for(i=0;i<returnValues.length-1;i++){
+                strTmp = returnValues[i];
+                console.log("=====strTmp========{"+strTmp+"}");
+                if(strTmp!=""){
+                    returnValuesOne = strTmp.toString().split("=");
+
+                    var j = 0;
+                    for(j=0;j<returnValuesOne.length;j++){
+                        console.log("=====returnValuesOne========{"+returnValuesOne[j]+"}");
+                    }
+
+                    var reversal = 0;
+                    if(returnValuesOne[7]!=""){
+                        if(returnValuesOne[7]=="0"){
+                            reversal = 0;
+                        }else{
+                            reversal = 1;
+                        }
+                    }
+
+                    var number = 0;
+                    if(returnValuesOne[3].indexOf(".")=="-1"){
+                        number = returnValuesOne[3].length
+                    }else{
+                        number = returnValuesOne[3].indexOf(".");
+                    }
+                    var widthTmp = returnValuesOne[3].substring(0,number);
+                    console.log("=====widthTmp========{"+widthTmp+"}");
+
+                    if(returnValuesOne[4].indexOf(".")=="-1"){
+                        number = returnValuesOne[4].length
+                    }else{
+                        number = returnValuesOne[4].indexOf(".");
+                    }
+                    var heightTmp = returnValuesOne[4].substring(0,number);
+                    console.log("=====heightTmp========{"+heightTmp+"}");
+                    if(returnValuesOne[1].indexOf(".")=="-1"){
+                        number = returnValuesOne[1].length
+                    }else{
+                        number = returnValuesOne[1].indexOf(".");
+                    }
+                    var xTmp = returnValuesOne[1].substring(0,number);
+                    console.log("=====xTmp========{"+xTmp+"}");
+                    if(returnValuesOne[2].indexOf(".")=="-1"){
+                        number = returnValuesOne[2].length
+                    }else{
+                        number = returnValuesOne[2].indexOf(".");
+                    }
+                    var yTmp = returnValuesOne[2].substring(0,number);
+                    console.log("=====yTmp========{"+yTmp+"}");
+
+
+                    var rotationTmp = 0;
+                    if(returnValuesOne[5]!=""){
+                        if(returnValuesOne[5].indexOf(".")=="-1"){
+                            number = returnValuesOne[5].length
+                        }else{
+                            number = returnValuesOne[5].indexOf(".");
+                        }
+                        rotationTmp = returnValuesOne[5].substring(0,number);
+                    }
+                    console.log("=====rotationTmp========{"+rotationTmp+"}");
+
+                    var urlTmp = "";
+                    if(returnValuesOne[8]!=""){
+                        if(returnValuesOne[8]=="1"){
+                            urlTmp =  "file:"+returnValuesOne[6];
+                        }else{
+                            urlTmp = returnValuesOne[6];
+                        }
+                    }
+
+                    var imagetypeTmp = "0";
+                    imagetypeTmp = returnValuesOne[8];
+
+                    var imageObj = Qt.createQmlObject(
+                    'import QtQuick 2.0;
+                       ChieldObjectModify {
+                       chield_index: "'+returnValuesOne[0]+'";
+                       x: '+xTmp+'
+                       y: '+yTmp+'
+                       width: '+widthTmp+';
+                       height: '+heightTmp+';
+                       oldType: 0;
+                       parent_width: "'+canvasObject.width+'";
+                       parent_height: "'+canvasObject.height+'";
+                       chield_url: "'+urlTmp+'";
+                       chield_reversal: '+reversal+';
+                       chield_imagetype: "'+imagetypeTmp+'";
+                       rotation: '+rotationTmp+';
+                   }', canvasObject);
+                    childrens.push(imageObj);
+                    flag ++;
+                }
+            }
         }
 
         function creatObj(sourceObj,widthObj,heightObj,imageType){
@@ -498,7 +600,7 @@ CPage {
                chield_imagetype: "'+imageType+'";
                x: '+(canvasObject.width/2-widthObj/2)+'
                y: '+(canvasObject.height/2-heightObj/2)+'
-               oldType: 0;
+               oldType: 1;
            }', canvasObject);
             childrens.push(imageObj);
             flag ++;

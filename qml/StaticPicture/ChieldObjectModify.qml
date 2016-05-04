@@ -164,8 +164,10 @@ Rectangle{
     }
 
     Component.onCompleted: {
-        chieldObj.focus=true;
-        chieldObj.border.color="#0ced8b"
+//        if(oldType!=0){
+            chieldObj.focus=true;
+            chieldObj.border.color="#0ced8b"
+//        }
         console.log("=========x===="+x);
         console.log("=========y===="+y);
         console.log("=========chieldObj.width===="+chieldObj.width);

@@ -9,6 +9,8 @@ CPageStackWindow {
         statusBarHoldItemColor: "#ffd306"
         orientationLock: CPageOrientation.LockPortrait
 
+        signal modifyFocus();
+
         Component.onCompleted: {
             gScreenInfo.setStatusBar(true)
             gScreenInfo.setStatusBarStyle("transblack")
