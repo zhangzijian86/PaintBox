@@ -179,6 +179,8 @@ CPage {
                                 reversal = chieldImage.chield_reversal
                             }
                         }
+                        var parentheightTmp = makeStaticPicture.height*8/14
+                        var parentwidthTmp = makeStaticPicture.width
                         if(imageUrl!=""){
                             deleteFocus();
                             var imageObj = Qt.createQmlObject(
@@ -187,15 +189,15 @@ CPage {
                                chield_url: "'+imageUrl+'";
                                width: '+width+';
                                height: '+height+';
-                               parent_width: "'+canvas.height+'";
-                               parent_height: "'+canvas.height+'";
-                               chield_index: "'+flag+'";
-                               chield_imagetype: 0;
-                               x: '+(canvas.width/2-width/2)+'
-                               y: '+(canvas.height/2-height/2)+'
+                               parent_width: "'+parentwidthTmp+'";
+                               parent_height: "'+parentheightTmp+'";
                                rotation: '+rotation+'
                                chield_reversal: '+reversal+'
                                oldType: 1;
+                               chield_imagetype: "0";
+                               chield_index: "'+flag+'";
+                               x: '+(parentwidthTmp/2-width/2)+'
+                               y: '+(parentheightTmp/2-height/2)+'
                            }', canvasObject);
                             childrens.push(imageObj);
                             flag ++;
