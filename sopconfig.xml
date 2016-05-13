@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<sopconfig syberos:versionName="1.0.1" xmlns:syberos="http://schemas.syberos.com/sop/res/syberos/v1" syberos:sopid="com.pg.PaintBox" syberos:versionCode="1" syberos:shareUserId="">
-    <uses-sdk syberos:targetSdkVersion="" syberos:minSdkVersion=""/>
-    <application syberos:icon="res/PaintBox.png" syberos:debuggable="true" syberos:description="可以将多个图片制作成一个静态图片，可从应用自己库中选择图片或者通过文件管理器选择手机图片。可以对图片进行各种操作：移动位置，反转图片，复制图片，旋转图片，放大缩小图片，可以生成三种大小的图片（大，中，小），生成图片直接保存在系统照片下路径为/data/home/user/DCIM/Camera/。" syberos:name="颜料盒子">
-        <uiapp syberos:launcher="true" syberos:icon="res/PaintBox.png" syberos:background="" syberos:id="PaintBox" syberos:splash="" syberos:exec="bin/PaintBox" syberos:name="">
+<sopconfig xmlns:syberos="http://schemas.syberos.com/sop/res/syberos/v1" syberos:sopid="com.pg.PaintBox" syberos:versionName="1.0.2" syberos:versionCode="1" syberos:shareUserId="">
+    <uses-sdk syberos:minSdkVersion="" syberos:targetSdkVersion=""/>
+    <application syberos:name="颜料盒子" syberos:debuggable="true" syberos:description="可以将多个图片制作成一个静态图片，可从应用自己库中选择图片或者通过文件管理器选择手机图片。可以对图片进行各种操作：移动位置，反转图片，复制图片，旋转图片，放大缩小图片，可以生成三种大小的图片（大，中，小），生成图片直接保存在系统照片下路径为/data/home/user/DCIM/Camera/。" syberos:icon="res/PaintBox.png">
+        <uiapp syberos:exec="bin/PaintBox" syberos:launcher="true" syberos:id="PaintBox" syberos:name="" syberos:background="" syberos:icon="res/PaintBox.png" syberos:splash="">
             <doctype syberos:id=""/>
         </uiapp>
     </application>

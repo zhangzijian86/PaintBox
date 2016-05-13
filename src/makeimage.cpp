@@ -99,6 +99,21 @@ QString MakeImage::makeStaticImage(int size,int Bgwidht,int Bgheight,const QStri
         }
     }
 
+    QDir *outtemp = new QDir;
+    bool outexist = outtemp->exists("/data/home/user/DCIM/Camera");
+    if(outexist)
+        qDebug()<<"out<<<<文件夹已经存在！";
+    else
+    {
+        bool outok = outtemp->mkdir("/data/home/user/DCIM/Camera");
+        if( outok ){
+            qDebug()<<"out<<<<文件夹创建成功！";
+        }else{
+            qDebug()<<"out<<<<无法创建文件夹！";
+            return "error";
+        }
+    }
+
     QFile file(pathTmp+"/"+nameTmp+".txt");
     if (!file.open(QIODevice::ReadWrite|QIODevice::Text)) {
         qDebug()<<"<<<<无法创建文件";
