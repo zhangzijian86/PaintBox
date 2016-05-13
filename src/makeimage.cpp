@@ -124,6 +124,7 @@ QString MakeImage::makeStaticImage(int size,int Bgwidht,int Bgheight,const QStri
     QPixmap *pix=new QPixmap(QSize(Bgwidht/size,Bgheight/size));
     pix->fill(Qt::white);
     QPainter paint(pix);
+    paint.setRenderHint(QPainter::HighQualityAntialiasing, true);
     for(int i = 0; i<imgList.length();i++){
         QString strTmp=imgList.at(i);
 
@@ -158,21 +159,30 @@ QString MakeImage::makeStaticImage(int size,int Bgwidht,int Bgheight,const QStri
             }
         }
 
+        qDebug()<<"==000=size="<<size;
+        qDebug()<<"==000=width="<<QPixmap(urlTmp).width();
+        qDebug()<<"==000=height="<<QPixmap(urlTmp).height();
+        qDebug()<<"==000=widhtTmp.toInt()/size="<<widhtTmp.toInt()/size;
+        qDebug()<<"==000=heightTmp.toInt()/size="<<heightTmp.toInt()/size;
         if(reversalTmp=="0"){
             if(rotatetTmp==""){
-                paint.drawPixmap(xTmp.toInt()/size,yTmp.toInt()/size,widhtTmp.toInt()/size,heightTmp.toInt()/size,QPixmap(urlTmp));
+                qDebug()<<"==000==";
+                paint.drawPixmap(xTmp.toInt()/size,yTmp.toInt()/size,QPixmap(urlTmp).scaled(widhtTmp.toInt()/size,heightTmp.toInt()/size,Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation));
             }else{
+                qDebug()<<"==111==";
                 QMatrix leftmatrix;
                 leftmatrix.rotate(rotatetTmp.toInt());
-                paint.drawPixmap(xTmp.toInt()/size,yTmp.toInt()/size,widhtTmp.toInt()/size,heightTmp.toInt()/size,QPixmap(urlTmp).transformed(leftmatrix,Qt::SmoothTransformation));
+                paint.drawPixmap(xTmp.toInt()/size,yTmp.toInt()/size,QPixmap(urlTmp).scaled(widhtTmp.toInt()/size,heightTmp.toInt()/size,Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation).transformed(leftmatrix,Qt::SmoothTransformation));
             }
         }else if(reversalTmp=="1"){
             if(rotatetTmp==""){
-                paint.drawPixmap(xTmp.toInt()/size,yTmp.toInt()/size,widhtTmp.toInt()/size,heightTmp.toInt()/size,QPixmap::fromImage(QImage(urlTmp).mirrored(true, false)));
+                qDebug()<<"==222==";
+                paint.drawPixmap(xTmp.toInt()/size,yTmp.toInt()/size,QPixmap::fromImage(QImage(urlTmp).mirrored(true, false)).scaled(widhtTmp.toInt()/size,heightTmp.toInt()/size,Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation));
             }else{
+                qDebug()<<"==333==";
                 QMatrix leftmatrix;
                 leftmatrix.rotate(rotatetTmp.toInt());
-                paint.drawPixmap(xTmp.toInt()/size,yTmp.toInt()/size,widhtTmp.toInt()/size,heightTmp.toInt()/size,QPixmap::fromImage(QImage(urlTmp).mirrored(true, false)).transformed(leftmatrix,Qt::SmoothTransformation));
+                paint.drawPixmap(xTmp.toInt()/size,yTmp.toInt()/size,QPixmap::fromImage(QImage(urlTmp).mirrored(true, false)).scaled(widhtTmp.toInt()/size,heightTmp.toInt()/size,Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation).transformed(leftmatrix,Qt::SmoothTransformation));
             }
         }        
     }
@@ -251,19 +261,19 @@ QString MakeImage::makeStaticModifyImage(QString imageName,int size,int Bgwidht,
 
         if(reversalTmp=="0"){
             if(rotatetTmp==""){
-                paint.drawPixmap(xTmp.toInt()/size,yTmp.toInt()/size,widhtTmp.toInt()/size,heightTmp.toInt()/size,QPixmap(urlTmp));
+                paint.drawPixmap(xTmp.toInt()/size,yTmp.toInt()/size,QPixmap(urlTmp).scaled(widhtTmp.toInt()/size,heightTmp.toInt()/size,Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation));
             }else{
                 QMatrix leftmatrix;
                 leftmatrix.rotate(rotatetTmp.toInt());
-                paint.drawPixmap(xTmp.toInt()/size,yTmp.toInt()/size,widhtTmp.toInt()/size,heightTmp.toInt()/size,QPixmap(urlTmp).transformed(leftmatrix,Qt::SmoothTransformation));
+                paint.drawPixmap(xTmp.toInt()/size,yTmp.toInt()/size,QPixmap(urlTmp).scaled(widhtTmp.toInt()/size,heightTmp.toInt()/size,Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation).transformed(leftmatrix,Qt::SmoothTransformation));
             }
         }else if(reversalTmp=="1"){
             if(rotatetTmp==""){
-                paint.drawPixmap(xTmp.toInt()/size,yTmp.toInt()/size,widhtTmp.toInt()/size,heightTmp.toInt()/size,QPixmap::fromImage(QImage(urlTmp).mirrored(true, false)));
+                paint.drawPixmap(xTmp.toInt()/size,yTmp.toInt()/size,QPixmap::fromImage(QImage(urlTmp).mirrored(true, false)).scaled(widhtTmp.toInt()/size,heightTmp.toInt()/size,Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation));
             }else{
                 QMatrix leftmatrix;
                 leftmatrix.rotate(rotatetTmp.toInt());
-                paint.drawPixmap(xTmp.toInt()/size,yTmp.toInt()/size,widhtTmp.toInt()/size,heightTmp.toInt()/size,QPixmap::fromImage(QImage(urlTmp).mirrored(true, false)).transformed(leftmatrix,Qt::SmoothTransformation));
+                paint.drawPixmap(xTmp.toInt()/size,yTmp.toInt()/size,QPixmap::fromImage(QImage(urlTmp).scaled(widhtTmp.toInt()/size,heightTmp.toInt()/size,Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation).mirrored(true, false)).transformed(leftmatrix,Qt::SmoothTransformation));
             }
         }
     }
