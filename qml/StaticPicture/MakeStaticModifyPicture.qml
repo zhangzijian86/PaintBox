@@ -313,7 +313,7 @@ CPage {
                     anchors.fill: parent
                     onClicked: {
                         console.log("========selectImage========");
-                        mainPage.pageStack.push(filesPickerCom)
+                        mainPage.pageStack.push(filesPickerCom,{"category":1})
                     }
                 }
             }
@@ -344,7 +344,7 @@ CPage {
                     for(var j = 0; j < filesPicker.filesPath.length; j++){
                         console.log("========filesPickerCom=========11====="+filesPicker.filesPath[j]);
                         if(j==0){
-                            mainItem.creatObj("file:/"+filesPicker.filesPath[j],mainItem.width/4,mainItem.height/13,"1");
+                            mainItem.creatObj("file:/"+filesPicker.filesPath[j],makeStaticPicture.width/2,makeStaticPicture.width/2,"1");
                         }else{
                             gToast.requestToast("只保留多张图片的第一张");
                             break;
