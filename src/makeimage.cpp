@@ -72,7 +72,7 @@ QString MakeImage::getAllImages(){
     return returnStr;
 }
 
-QString MakeImage::makeStaticImage(int size,int Bgwidht,int Bgheight,const QStringList &imgList){
+QString MakeImage::makeStaticImage(int size,int Bgwidht,int Bgheight,const QStringList &imgList,const QStringList &textList){
     QString nameTmp = "";
     QString pathTmp = "";
     QString path;
@@ -137,6 +137,9 @@ QString MakeImage::makeStaticImage(int size,int Bgwidht,int Bgheight,const QStri
         QString urlTmp = strlTmp.at(6);
         QString reversalTmp = strlTmp.at(7);
         QString imagetypeTmp = strlTmp.at(8);
+        QString typeTmp = strlTmp.at(9);
+
+        qDebug()<<"=makeStaticImage=typeTmp=="+ typeTmp;
 
         if(imagetypeTmp=="0"){
             urlTmp = urlTmp.mid(urlTmp.lastIndexOf("/"),urlTmp.length()-1);
@@ -159,32 +162,86 @@ QString MakeImage::makeStaticImage(int size,int Bgwidht,int Bgheight,const QStri
             }
         }
 
-        qDebug()<<"==000=size="<<size;
-        qDebug()<<"==000=width="<<QPixmap(urlTmp).width();
-        qDebug()<<"==000=height="<<QPixmap(urlTmp).height();
-        qDebug()<<"==000=widhtTmp.toInt()/size="<<widhtTmp.toInt()/size;
-        qDebug()<<"==000=heightTmp.toInt()/size="<<heightTmp.toInt()/size;
+        qDebug()<<"=imgList=000=size="<<size;
+        qDebug()<<"=imgList=000=width="<<QPixmap(urlTmp).width();
+        qDebug()<<"=imgList=000=height="<<QPixmap(urlTmp).height();
+        qDebug()<<"=imgList=000=widhtTmp.toInt()/size="<<widhtTmp.toInt()/size;
+        qDebug()<<"=imgList=000=heightTmp.toInt()/size="<<heightTmp.toInt()/size;
         if(reversalTmp=="0"){
             if(rotatetTmp==""){
-                qDebug()<<"==000==";
+                qDebug()<<"=imgList=000==";
                 paint.drawPixmap(xTmp.toInt(),yTmp.toInt(),QPixmap(urlTmp).scaled(widhtTmp.toInt(),heightTmp.toInt(),Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation));
             }else{
-                qDebug()<<"==111==";
+                qDebug()<<"=imgList=111==";
                 QMatrix leftmatrix;
                 leftmatrix.rotate(rotatetTmp.toInt());
                 paint.drawPixmap(xTmp.toInt(),yTmp.toInt(),QPixmap(urlTmp).scaled(widhtTmp.toInt(),heightTmp.toInt(),Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation).transformed(leftmatrix,Qt::SmoothTransformation));
             }
         }else if(reversalTmp=="1"){
             if(rotatetTmp==""){
-                qDebug()<<"==222==";
+                qDebug()<<"=imgList=222==";
                 paint.drawPixmap(xTmp.toInt(),yTmp.toInt(),QPixmap::fromImage(QImage(urlTmp).mirrored(true, false)).scaled(widhtTmp.toInt(),heightTmp.toInt(),Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation));
             }else{
-                qDebug()<<"==333==";
+                qDebug()<<"=imgList=333==";
                 QMatrix leftmatrix;
                 leftmatrix.rotate(rotatetTmp.toInt());
                 paint.drawPixmap(xTmp.toInt(),yTmp.toInt(),QPixmap::fromImage(QImage(urlTmp).mirrored(true, false)).scaled(widhtTmp.toInt(),heightTmp.toInt(),Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation).transformed(leftmatrix,Qt::SmoothTransformation));
             }
         }        
+    }
+
+    for(int j = 0; j<textList.length();j++){
+        QString strTextTmp=textList.at(j);
+        out<<strTextTmp<<endl;
+        QStringList strlTmp = strTextTmp.split("=");
+        QString xTmp = this->processingString(strlTmp.at(1));
+        QString yTmp = this->processingString(strlTmp.at(2));
+        QString widhtTmp = this->processingString(strlTmp.at(3));
+        QString heightTmp = this->processingString(strlTmp.at(4));
+        QString rotatetTmp = this->processingString(strlTmp.at(5));
+        QString textTmp = strlTmp.at(6);
+        QString scaleTmp = strlTmp.at(7);
+        QString typeTmp = strlTmp.at(9);
+
+        qDebug()<<"=makeStaticImage=typeTmp=="+ typeTmp;
+
+        qDebug()<<"=textList=111=size="<<size;
+        qDebug()<<"=textList=111=textTmp="<<textTmp;
+        qDebug()<<"=textList=111=widhtTmp.toInt()/size="<<widhtTmp.toInt();
+        qDebug()<<"=textList=111=heightTmp.toInt()/size="<<heightTmp.toInt();
+        qDebug()<<"=textList=111=scaleTmp="<<scaleTmp;
+        qDebug()<<"=textList=111=rotatetTmp="<<rotatetTmp;
+
+        if(rotatetTmp==""){
+            qDebug()<<"=textList=111=="<<rotatetTmp.toInt();
+            QFont font;
+            font.setPixelSize(30);
+            paint.setFont(font);
+            paint.drawText(xTmp.toInt()+20,yTmp.toInt()+40,textTmp);
+        }else{
+            qDebug()<<"=textList=222=="<<rotatetTmp.toInt();
+            QFont font;
+            double pixesize = 30;
+            pixesize = pixesize*scaleTmp.toDouble();
+            int pixesizeInt = (int)pixesize;
+            qDebug()<<"=textList=222=pixesizeInt="<<pixesizeInt;
+            font.setPixelSize(pixesizeInt);//30*scaleTmp.toInt()
+            paint.setFont(font);
+            paint.drawText(xTmp.toInt(),yTmp.toInt(),"aaa");
+            int rotateNumber = 0;
+            rotateNumber = rotatetTmp.toInt();
+            rotateNumber = rotateNumber%360;
+//            if(rotateNumber<0){
+//                rotateNumber = 360 + rotateNumber;
+//            }
+            paint.translate(xTmp.toInt(),yTmp.toInt());
+            paint.rotate(rotateNumber);
+            paint.drawText(0,0,textTmp);
+            paint.rotate(-rotateNumber);
+            paint.translate(-xTmp.toInt(),-yTmp.toInt());
+            paint.drawText(xTmp.toInt(),yTmp.toInt(),"bbb");
+            qDebug()<<"=textList=222=rotateNumber="<<rotateNumber;
+        }
     }
 
     QString returnStr = "/data/home/user/DCIM/Camera/"+nameTmp+".jpg";
@@ -200,7 +257,7 @@ QString MakeImage::makeStaticImage(int size,int Bgwidht,int Bgheight,const QStri
     return returnStr;
 }
 
-QString MakeImage::makeStaticModifyImage(QString imageName,int size,int Bgwidht,int Bgheight,const QStringList &imgList){
+QString MakeImage::makeStaticModifyImage(QString imageName,int size,int Bgwidht,int Bgheight,const QStringList &imgList,const QStringList &textList){
 
     QString path;
     QDir dir;
@@ -238,6 +295,8 @@ QString MakeImage::makeStaticModifyImage(QString imageName,int size,int Bgwidht,
         QString urlTmp = strlTmp.at(6);
         QString reversalTmp = strlTmp.at(7);
         QString imagetypeTmp = strlTmp.at(8);
+        QString typeTmp = strlTmp.at(9);
+        qDebug()<<"=makeStaticModifyImage=typeTmp=="+ typeTmp;
 
         if(imagetypeTmp=="0"){
             urlTmp = urlTmp.mid(urlTmp.lastIndexOf("/"),urlTmp.length()-1);
@@ -276,6 +335,59 @@ QString MakeImage::makeStaticModifyImage(QString imageName,int size,int Bgwidht,
                 leftmatrix.rotate(rotatetTmp.toInt());
                 paint.drawPixmap(xTmp.toInt(),yTmp.toInt(),QPixmap::fromImage(QImage(urlTmp).scaled(widhtTmp.toInt(),heightTmp.toInt(),Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation).mirrored(true, false)).transformed(leftmatrix,Qt::SmoothTransformation));
             }
+        }
+    }
+    for(int j = 0; j<textList.length();j++){
+        QString strTextTmp=textList.at(j);
+        out<<strTextTmp<<endl;
+        QStringList strlTmp = strTextTmp.split("=");
+        QString xTmp = this->processingString(strlTmp.at(1));
+        QString yTmp = this->processingString(strlTmp.at(2));
+        QString widhtTmp = this->processingString(strlTmp.at(3));
+        QString heightTmp = this->processingString(strlTmp.at(4));
+        QString rotatetTmp = this->processingString(strlTmp.at(5));
+        QString textTmp = strlTmp.at(6);
+        QString scaleTmp = strlTmp.at(7);
+        QString typeTmp = strlTmp.at(9);
+
+        qDebug()<<"=makeStaticImage=typeTmp=="+ typeTmp;
+
+        qDebug()<<"=textList=111=size="<<size;
+        qDebug()<<"=textList=111=textTmp="<<textTmp;
+        qDebug()<<"=textList=111=widhtTmp.toInt()/size="<<widhtTmp.toInt();
+        qDebug()<<"=textList=111=heightTmp.toInt()/size="<<heightTmp.toInt();
+        qDebug()<<"=textList=111=scaleTmp="<<scaleTmp;
+        qDebug()<<"=textList=111=rotatetTmp="<<rotatetTmp;
+
+        if(rotatetTmp==""){
+            qDebug()<<"=textList=111=="<<rotatetTmp.toInt();
+            QFont font;
+            font.setPixelSize(30);
+            paint.setFont(font);
+            paint.drawText(xTmp.toInt()+20,yTmp.toInt()+40,textTmp);
+        }else{
+            qDebug()<<"=textList=222=="<<rotatetTmp.toInt();
+            QFont font;
+            double pixesize = 30;
+            pixesize = pixesize*scaleTmp.toDouble();
+            int pixesizeInt = (int)pixesize;
+            qDebug()<<"=textList=222=pixesizeInt="<<pixesizeInt;
+            font.setPixelSize(pixesizeInt);//30*scaleTmp.toInt()
+            paint.setFont(font);
+            paint.drawText(xTmp.toInt(),yTmp.toInt(),"aaa");
+            int rotateNumber = 0;
+            rotateNumber = rotatetTmp.toInt();
+            rotateNumber = rotateNumber%360;
+//            if(rotateNumber<0){
+//                rotateNumber = 360 + rotateNumber;
+//            }
+            paint.translate(xTmp.toInt(),yTmp.toInt());
+            paint.rotate(rotateNumber);
+            paint.drawText(0,0,textTmp);
+            paint.rotate(-rotateNumber);
+            paint.translate(-xTmp.toInt(),-yTmp.toInt());
+            paint.drawText(xTmp.toInt(),yTmp.toInt(),"bbb");
+            qDebug()<<"=textList=222=rotateNumber="<<rotateNumber;
         }
     }
     pix->scaled(pix->width()/size,pix->height()/size,Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);

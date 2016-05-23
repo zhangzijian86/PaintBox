@@ -8,15 +8,19 @@ CPage {
     id:makeStaticPicture
     anchors.fill: parent
     property int flag:0
+    property int text_flag:0
     property int xflag:10
     property int yflag:10
     property int zflag:10
     property int size:2
     property string imageUrl:""
+    property string strText:""
     property string imageName:""
     property alias  canvasObject :canvas
     property var childrens:[]
+    property var text_childrens:[]
     property var passValue:[]
+    property var passTextValue:[]
     property var returnValues:[]
     property var returnValuesOne:[]
     property var nameValue:["expression-基础","corpse-僵尸","throwdog-扔狗","collapse-崩溃","friendship-友谊","penguin-企鹅","chick-小鸡"]
@@ -73,6 +77,7 @@ CPage {
                         tmpStr = tmpStr +"="+ chieldImage.chield_url;
                         tmpStr = tmpStr +"="+ chieldImage.chield_reversal;
                         tmpStr = tmpStr +"="+ chieldImage.chield_imagetype;
+                        tmpStr = tmpStr +"="+ "0";
                         console.log("==="+i+"==index="+chieldImage.chield_index);
                         console.log("==="+i+"==x="+((chieldImage.chield_x - (chieldImage.width/2)*(chieldImage.countScale-1))));
                         console.log("==="+i+"==y="+((chieldImage.chield_y - (chieldImage.height/2)*(chieldImage.countScale-1))));
@@ -87,8 +92,40 @@ CPage {
                         passValue.push(tmpStr);
                         tmpStr = "";
                     }
-                    var returnStr = makeImage.makeStaticModifyImage(imageName,size,canvas.width,canvas.height,passValue);
+
+                    var j = 0;
+                    var chieldText;
+                    var tmpTextStr = "";
+                    for(j=0;j<text_childrens.length;j++){
+                        chieldText = text_childrens[j];
+                        tmpTextStr = tmpTextStr + chieldText.chield_index;
+                        tmpTextStr = tmpTextStr +"="+ ((chieldText.chield_x - (chieldText.width/2)*(chieldText.countScale-1)))
+                        tmpTextStr = tmpTextStr +"="+ ((chieldText.chield_y - (chieldText.height/2)*(chieldText.countScale-1)));
+                        tmpTextStr = tmpTextStr +"="+ (chieldText.width*chieldText.countScale);
+                        tmpTextStr = tmpTextStr +"="+ (chieldText.height*chieldText.countScale);
+                        tmpTextStr = tmpTextStr +"="+ chieldText.chield_rotate;
+                        tmpTextStr = tmpTextStr +"="+ chieldText.chield_text;
+                        tmpTextStr = tmpTextStr +"="+ chieldText.scale;
+                        tmpTextStr = tmpTextStr +"="+ chieldText.chield_imagetype;
+                        tmpTextStr = tmpTextStr +"="+ "1";
+                        console.log("==="+i+"==index="+chieldText.chield_index);
+                        console.log("==="+i+"==x="+((chieldText.chield_x - (chieldText.width/2)*(chieldText.countScale-1))));
+                        console.log("==="+i+"==y="+((chieldText.chield_y - (chieldText.height/2)*(chieldText.countScale-1))));
+                        console.log("==="+i+"==width="+chieldText.width);
+                        console.log("==="+i+"==height="+chieldText.height);
+                        console.log("==="+i+"==rotate="+chieldText.chield_rotate);
+                        console.log("==="+i+"==url="+chieldText.chield_text);
+                        console.log("==="+i+"==focus="+chieldText.focus);
+                        console.log("==="+i+"==scale="+chieldText.scale);
+                        console.log("==="+i+"==chield_imagetype="+chieldText.chield_imagetype);
+                        console.log("==="+i+"==tmpStr="+tmpTextStr);
+                        passTextValue.push(tmpTextStr);
+                        tmpTextStr = "";
+                    }
+
+                    var returnStr = makeImage.makeStaticModifyImage(imageName,size,canvas.width,canvas.height,passValue,passTextValue);
                     passValue.splice(0,passValue.length);
+                    passTextValue.splice(0,passTextValue.length)
                     mainPage.modifyFocus();
                     if(returnStr!=""){
                         mainPage.pageStack.pop();
@@ -194,6 +231,7 @@ CPage {
                                rotation: '+rotation+'
                                chield_reversal: '+reversal+'
                                oldType: 1;
+                               chield_index: "'+flag+'";
                                chield_imagetype: "0";
                                chield_index: "'+flag+'";
                                x: '+(parentwidthTmp/2-width/2)+'
@@ -201,6 +239,47 @@ CPage {
                            }', canvasObject);
                             childrens.push(imageObj);
                             flag ++;
+                        }
+
+                        strText = "";
+                        var j = 0;
+                        var chieldText;
+                        var textWidth = expression.width/4;
+                        var textHeight = makeStaticPicture.height/13;
+                        var reversalText = 0
+                        var rotationText = 0;
+                        for(j=0;j<text_childrens.length;j++){
+                            chieldText = text_childrens[i];
+                            if(chieldText.focus==true){
+                                strText = chieldText.chield_text
+                                textWidth = chieldText.width
+                                textHeight = chieldText.height
+                                rotationText = chieldText.rotation
+                                reversalText = chieldText.chield_reversal
+                            }
+                        }
+                        var parentheightTextTmp = makeStaticPicture.height*8/14
+                        var parentwidthTextTmp = makeStaticPicture.width
+
+                        if(strText!=""){
+                            deleteFocus();
+                            var textObj = Qt.createQmlObject(
+                            'import QtQuick 2.0;
+                               ChieldTextObject {
+                               chield_text: "'+strText+'";
+                               width: '+textWidth+';
+                               height: 65;
+                               parent_width: "'+parentwidthTextTmp+'";
+                               parent_height: "'+parentheightTextTmp+'";
+                               chield_index: "'+text_flag+'";
+                               x: '+(canvas.width/2-width/2)+'
+                               y: '+(canvas.height/2-height/2)+'
+                               rotation: '+rotationText+'
+                               chield_reversal: '+reversalText+'
+                               chield_imagetype: "1";
+                           }', canvasObject);
+                            text_childrens.push(textObj);
+                            text_flag ++;
                         }
                     }
                 }
@@ -221,6 +300,15 @@ CPage {
                             if(chieldImage.focus==true){
                                 childrens.splice(i,1);
                                 chieldImage.destroy();
+                            }
+                        }
+                        var j = 0;
+                        var chieldText;
+                        for(i=0;i<text_childrens.length;i++){
+                            chieldText = text_childrens[i];
+                            if(chieldText.focus==true){
+                                text_childrens.splice(i,1);
+                                chieldText.destroy();
                             }
                         }
                     }
@@ -329,9 +417,24 @@ CPage {
                     anchors.fill: parent
                     onClicked: {
                         console.log("========addfontImage========");
-                        gToast.requestToast("添加文字功能构建中");
+//                        gToast.requestToast("添加文字功能构建中");
+                        cInputDialog.show();
                     }
                 }
+            }
+        }
+
+        CInputDialog{
+            id:cInputDialog
+            visible: false
+            maximumLength: 15
+            onAccepted: {
+                console.log("=======cInputDialog========="+cInputDialog.text());
+                console.log("=======cInputDialog========="+cInputDialog.text().length);
+                if(cInputDialog.text().length!=0){
+                    mainItem.creatTextObj(cInputDialog.text(),cInputDialog.text().length*35,"0");
+                }
+                cInputDialog.setText("");
             }
         }
 
@@ -462,9 +565,37 @@ CPage {
                     chieldImage = childrens[i];
                     chieldImage.destroy();
                 }
+
+                var j = 0;
+                var chieldText;
+                for(j=0;j<text_childrens.length;j++){
+                    chieldText = text_childrens[j];
+                    chieldText.destroy();
+                }
+
                 passValue.splice(0,passValue.length);
+                passTextValue.splice(0,passTextValue.length);
                 childrens.splice(0,childrens.length);
+                text_childrens.splice(0,text_childrens.length);
             }
+        }
+
+        function creatTextObj(textObj,textObjwith,imageType){
+            var imageObj = Qt.createQmlObject(
+            'import QtQuick 2.0;
+               ChieldTextObject {
+               chield_text: "'+textObj+'";
+               width: '+textObjwith+';
+               height: 65;
+               parent_width: "'+canvasObject.width+'";
+               parent_height: "'+canvasObject.height+'";
+               chield_index: "'+flag+'";
+               chield_imagetype: "'+imageType+'";
+               x: '+(canvasObject.width/2-200)+'
+               y: '+(canvasObject.height/2-200)+'
+           }', canvasObject);
+            text_childrens.push(imageObj);
+            text_flag ++;
         }
 
         Component.onCompleted: {
@@ -497,97 +628,188 @@ CPage {
                 console.log("=====strTmp========{"+strTmp+"}");
                 if(strTmp!=""){
                     returnValuesOne = strTmp.toString().split("=");
-
-                    var j = 0;
-                    for(j=0;j<returnValuesOne.length;j++){
-                        console.log("=====returnValuesOne========{"+returnValuesOne[j]+"}");
-                    }
-
-                    var reversal = 0;
-                    if(returnValuesOne[7]!=""){
-                        if(returnValuesOne[7]=="0"){
-                            reversal = 0;
-                        }else{
-                            reversal = 1;
+                    if(returnValuesOne[9]=="0"){
+                        var j = 0;
+                        for(j=0;j<returnValuesOne.length;j++){
+                            console.log("==returnValuesOne[9]==000===returnValuesOne========{"+returnValuesOne[j]+"}");
                         }
-                    }
 
-                    var number = 0;
-                    if(returnValuesOne[3].indexOf(".")=="-1"){
-                        number = returnValuesOne[3].length
-                    }else{
-                        number = returnValuesOne[3].indexOf(".");
-                    }
-                    var widthTmp = returnValuesOne[3].substring(0,number);
-                    console.log("=====widthTmp========{"+widthTmp+"}");
-
-                    if(returnValuesOne[4].indexOf(".")=="-1"){
-                        number = returnValuesOne[4].length
-                    }else{
-                        number = returnValuesOne[4].indexOf(".");
-                    }
-                    var heightTmp = returnValuesOne[4].substring(0,number);
-                    console.log("=====heightTmp========{"+heightTmp+"}");
-                    if(returnValuesOne[1].indexOf(".")=="-1"){
-                        number = returnValuesOne[1].length
-                    }else{
-                        number = returnValuesOne[1].indexOf(".");
-                    }
-                    var xTmp = returnValuesOne[1].substring(0,number);
-                    console.log("=====xTmp========{"+xTmp+"}");
-                    if(returnValuesOne[2].indexOf(".")=="-1"){
-                        number = returnValuesOne[2].length
-                    }else{
-                        number = returnValuesOne[2].indexOf(".");
-                    }
-                    var yTmp = returnValuesOne[2].substring(0,number);
-                    console.log("=====yTmp========{"+yTmp+"}");
-
-
-                    var rotationTmp = 0;
-                    if(returnValuesOne[5]!=""){
-                        if(returnValuesOne[5].indexOf(".")=="-1"){
-                            number = returnValuesOne[5].length
-                        }else{
-                            number = returnValuesOne[5].indexOf(".");
+                        var reversal = 0;
+                        if(returnValuesOne[7]!=""){
+                            if(returnValuesOne[7]=="0"){
+                                reversal = 0;
+                            }else{
+                                reversal = 1;
+                            }
                         }
-                        rotationTmp = returnValuesOne[5].substring(0,number);
-                    }
-                    console.log("=====rotationTmp========{"+rotationTmp+"}");
 
-                    var urlTmp = "";
-                    if(returnValuesOne[8]!=""){
-                        if(returnValuesOne[8]=="1"){
-                            urlTmp =  "file:"+returnValuesOne[6];
+                        var number = 0;
+                        if(returnValuesOne[3].indexOf(".")=="-1"){
+                            number = returnValuesOne[3].length
                         }else{
-                            urlTmp = returnValuesOne[6];
+                            number = returnValuesOne[3].indexOf(".");
                         }
+                        var widthTmp = returnValuesOne[3].substring(0,number);
+                        console.log("=====widthTmp========{"+widthTmp+"}");
+
+                        if(returnValuesOne[4].indexOf(".")=="-1"){
+                            number = returnValuesOne[4].length
+                        }else{
+                            number = returnValuesOne[4].indexOf(".");
+                        }
+                        var heightTmp = returnValuesOne[4].substring(0,number);
+                        console.log("=====heightTmp========{"+heightTmp+"}");
+                        if(returnValuesOne[1].indexOf(".")=="-1"){
+                            number = returnValuesOne[1].length
+                        }else{
+                            number = returnValuesOne[1].indexOf(".");
+                        }
+                        var xTmp = returnValuesOne[1].substring(0,number);
+                        console.log("=====xTmp========{"+xTmp+"}");
+                        if(returnValuesOne[2].indexOf(".")=="-1"){
+                            number = returnValuesOne[2].length
+                        }else{
+                            number = returnValuesOne[2].indexOf(".");
+                        }
+                        var yTmp = returnValuesOne[2].substring(0,number);
+                        console.log("=====yTmp========{"+yTmp+"}");
+
+
+                        var rotationTmp = 0;
+                        if(returnValuesOne[5]!=""){
+                            if(returnValuesOne[5].indexOf(".")=="-1"){
+                                number = returnValuesOne[5].length
+                            }else{
+                                number = returnValuesOne[5].indexOf(".");
+                            }
+                            rotationTmp = returnValuesOne[5].substring(0,number);
+                        }
+                        console.log("=====rotationTmp========{"+rotationTmp+"}");
+
+                        var urlTmp = "";
+                        if(returnValuesOne[8]!=""){
+                            if(returnValuesOne[8]=="1"){
+                                urlTmp =  "file:"+returnValuesOne[6];
+                            }else{
+                                urlTmp = returnValuesOne[6];
+                            }
+                        }
+
+                        var imagetypeTmp = "0";
+                        imagetypeTmp = returnValuesOne[8];
+
+                        var parentheightTmp = makeStaticPicture.height*8/14
+                        var parentwidthTmp = makeStaticPicture.width
+
+                        var imageObj = Qt.createQmlObject(
+                        'import QtQuick 2.0;
+                           ChieldObjectModify {
+                           chield_index: "'+returnValuesOne[0]+'";
+                           x: '+xTmp+'
+                           y: '+yTmp+'
+                           width: 200;
+                           height: 200;
+                           oldType: 0;
+                           parent_width: "'+parentheightTmp+'";
+                           parent_height: "'+parentwidthTmp+'";
+                           chield_url: "'+urlTmp+'";
+                           chield_reversal: '+reversal+';
+                           chield_imagetype: "'+imagetypeTmp+'";
+                           rotation: '+rotationTmp+';
+                       }', canvasObject);
+                        childrens.push(imageObj);
+                        flag ++;
+                    }else{
+                        var j = 0;
+                        for(j=0;j<returnValuesOne.length;j++){
+                            console.log("==returnValuesOne[9]==111===returnValuesOne========{"+returnValuesOne[j]+"}");
+                        }
+
+                        var reversal = 0;
+                        if(returnValuesOne[7]!=""){
+                            if(returnValuesOne[7]=="0"){
+                                reversal = 0;
+                            }else{
+                                reversal = 1;
+                            }
+                        }
+
+                        var number = 0;
+                        if(returnValuesOne[3].indexOf(".")=="-1"){
+                            number = returnValuesOne[3].length
+                        }else{
+                            number = returnValuesOne[3].indexOf(".");
+                        }
+                        var widthTmp = returnValuesOne[3].substring(0,number);
+                        console.log("=====widthTmp========{"+widthTmp+"}");
+
+                        if(returnValuesOne[4].indexOf(".")=="-1"){
+                            number = returnValuesOne[4].length
+                        }else{
+                            number = returnValuesOne[4].indexOf(".");
+                        }
+                        var heightTmp = returnValuesOne[4].substring(0,number);
+                        console.log("=====heightTmp========{"+heightTmp+"}");
+                        if(returnValuesOne[1].indexOf(".")=="-1"){
+                            number = returnValuesOne[1].length
+                        }else{
+                            number = returnValuesOne[1].indexOf(".");
+                        }
+                        var xTmp = returnValuesOne[1].substring(0,number);
+                        console.log("=====xTmp========{"+xTmp+"}");
+                        if(returnValuesOne[2].indexOf(".")=="-1"){
+                            number = returnValuesOne[2].length
+                        }else{
+                            number = returnValuesOne[2].indexOf(".");
+                        }
+                        var yTmp = returnValuesOne[2].substring(0,number);
+                        console.log("=====yTmp========{"+yTmp+"}");
+
+
+                        var rotationTmp = 0;
+                        if(returnValuesOne[5]!=""){
+                            if(returnValuesOne[5].indexOf(".")=="-1"){
+                                number = returnValuesOne[5].length
+                            }else{
+                                number = returnValuesOne[5].indexOf(".");
+                            }
+                            rotationTmp = returnValuesOne[5].substring(0,number);
+                        }
+                        console.log("=====rotationTmp========{"+rotationTmp+"}");
+
+                        var textTmp = "";
+                        if(returnValuesOne[8]!=""){
+                            if(returnValuesOne[8]=="1"){
+                                textTmp =  returnValuesOne[6];
+                            }else{
+                                textTmp = returnValuesOne[6];
+                            }
+                        }
+
+                        var imagetypeTmp = "0";
+                        imagetypeTmp = returnValuesOne[8];
+
+                        var parentheightTmp = makeStaticPicture.height*8/14
+                        var parentwidthTmp = makeStaticPicture.width
+
+                        var imageObj = Qt.createQmlObject(
+                        'import QtQuick 2.0;
+                           ChieldTextObject {
+                           chield_index: "'+text_flag+'";
+                           x: '+xTmp+'
+                           y: '+yTmp+'
+                           width: '+widthTmp+';
+                           height: 65;
+                           parent_width: "'+parentheightTmp+'";
+                           parent_height: "'+parentwidthTmp+'";
+                           chield_text: "'+textTmp+'";
+                           chield_reversal: '+reversal+';
+                           chield_imagetype: "'+imagetypeTmp+'";
+                           rotation: '+rotationTmp+';
+                       }', canvasObject);
+                        text_childrens.push(imageObj);
+                        text_flag ++;
                     }
-
-                    var imagetypeTmp = "0";
-                    imagetypeTmp = returnValuesOne[8];
-
-                    var parentheightTmp = makeStaticPicture.height*8/14
-                    var parentwidthTmp = makeStaticPicture.width
-
-                    var imageObj = Qt.createQmlObject(
-                    'import QtQuick 2.0;
-                       ChieldObjectModify {
-                       chield_index: "'+returnValuesOne[0]+'";
-                       x: '+xTmp+'
-                       y: '+yTmp+'
-                       width: 200;
-                       height: 200;
-                       oldType: 0;
-                       parent_width: "'+parentheightTmp+'";
-                       parent_height: "'+parentwidthTmp+'";
-                       chield_url: "'+urlTmp+'";
-                       chield_reversal: '+reversal+';
-                       chield_imagetype: "'+imagetypeTmp+'";
-                       rotation: '+rotationTmp+';
-                   }', canvasObject);
-                    childrens.push(imageObj);
-                    flag ++;
                 }
             }
         }

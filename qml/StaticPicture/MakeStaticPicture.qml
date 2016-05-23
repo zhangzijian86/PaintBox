@@ -8,15 +8,19 @@ CPage {
     id:makeStaticPicture
     anchors.fill: parent
     property int flag:0
+    property int text_flag:0
     property int xflag:10
     property int yflag:10
     property int zflag:10
     property int size:2
     property string imageUrl:""
+    property string strText:""
     property string materialType:""
     property alias  canvasObject :canvas
     property var childrens:[]
+    property var text_childrens:[]
     property var passValue:[]
+    property var passTextValue:[]
     property var nameValue:["expression-基础","corpse-僵尸","throwdog-扔狗","collapse-崩溃","friendship-友谊","penguin-企鹅","chick-小鸡"]
     signal deleteFocus();
     signal imageReversal();
@@ -71,17 +75,18 @@ CPage {
                         tmpStr = tmpStr +"="+ chieldImage.chield_url;
                         tmpStr = tmpStr +"="+ chieldImage.chield_reversal;
                         tmpStr = tmpStr +"="+ chieldImage.chield_imagetype;
-                        console.log("==="+i+"==index="+chieldImage.chield_index);
-                        console.log("==="+i+"==x="+((chieldImage.chield_x - (chieldImage.width/2)*(chieldImage.countScale-1))));
-                        console.log("==="+i+"==y="+((chieldImage.chield_y - (chieldImage.height/2)*(chieldImage.countScale-1))));
-                        console.log("==="+i+"==width="+chieldImage.width);
-                        console.log("==="+i+"==height="+chieldImage.height);
-                        console.log("==="+i+"==rotate="+chieldImage.chield_rotate);
-                        console.log("==="+i+"==url="+chieldImage.chield_url);
-                        console.log("==="+i+"==focus="+chieldImage.focus);
-                        console.log("==="+i+"==chield_reversal="+chieldImage.chield_reversal);
-                        console.log("==="+i+"==chield_imagetype="+chieldImage.chield_imagetype);
-                        console.log("==="+i+"==tmpStr="+tmpStr);
+                        tmpStr = tmpStr +"="+ "0";
+//                        console.log("==="+i+"==index="+chieldImage.chield_index);
+//                        console.log("==="+i+"==x="+((chieldImage.chield_x - (chieldImage.width/2)*(chieldImage.countScale-1))));
+//                        console.log("==="+i+"==y="+((chieldImage.chield_y - (chieldImage.height/2)*(chieldImage.countScale-1))));
+//                        console.log("==="+i+"==width="+chieldImage.width);
+//                        console.log("==="+i+"==height="+chieldImage.height);
+//                        console.log("==="+i+"==rotate="+chieldImage.chield_rotate);
+//                        console.log("==="+i+"==url="+chieldImage.chield_url);
+//                        console.log("==="+i+"==focus="+chieldImage.focus);
+//                        console.log("==="+i+"==chield_reversal="+chieldImage.chield_reversal);
+//                        console.log("==="+i+"==chield_imagetype="+chieldImage.chield_imagetype);
+//                        console.log("==="+i+"==tmpStr="+tmpStr);
                         passValue.push(tmpStr);
                         tmpStr = "";
                         //                    if(chieldImage.focus==true){
@@ -91,13 +96,45 @@ CPage {
                         //                    childrens.splice(i,1);
                         //                    chieldImage.destroy();
                     }
-                    var returnStr = makeImage.makeStaticImage(size,canvas.width,canvas.height,passValue);
+
+                    var j = 0;
+                    var chieldText;
+                    var tmpTextStr = "";
+                    for(j=0;j<text_childrens.length;j++){
+                        chieldText = text_childrens[j];
+                        tmpTextStr = tmpTextStr + chieldText.chield_index;
+                        tmpTextStr = tmpTextStr +"="+ ((chieldText.chield_x - (chieldText.width/2)*(chieldText.countScale-1)))
+                        tmpTextStr = tmpTextStr +"="+ ((chieldText.chield_y - (chieldText.height/2)*(chieldText.countScale-1)));
+                        tmpTextStr = tmpTextStr +"="+ (chieldText.width*chieldText.countScale);
+                        tmpTextStr = tmpTextStr +"="+ (chieldText.height*chieldText.countScale);
+                        tmpTextStr = tmpTextStr +"="+ chieldText.chield_rotate;
+                        tmpTextStr = tmpTextStr +"="+ chieldText.chield_text;
+                        tmpTextStr = tmpTextStr +"="+ chieldText.scale;
+                        tmpTextStr = tmpTextStr +"="+ chieldText.chield_imagetype;
+                        tmpTextStr = tmpTextStr +"="+ "1";
+                        console.log("==="+i+"==index="+chieldText.chield_index);
+                        console.log("==="+i+"==x="+((chieldText.chield_x - (chieldText.width/2)*(chieldText.countScale-1))));
+                        console.log("==="+i+"==y="+((chieldText.chield_y - (chieldText.height/2)*(chieldText.countScale-1))));
+                        console.log("==="+i+"==width="+chieldText.width);
+                        console.log("==="+i+"==height="+chieldText.height);text_childrens
+                        console.log("==="+i+"==rotate="+chieldText.chield_rotate);
+                        console.log("==="+i+"==url="+chieldText.chield_text);
+                        console.log("==="+i+"==focus="+chieldText.focus);
+                        console.log("==="+i+"==scale="+chieldText.scale);
+                        console.log("==="+i+"==chield_imagetype="+chieldText.chield_imagetype);
+                        console.log("==="+i+"==tmpStr="+tmpTextStr);
+                        passTextValue.push(tmpTextStr);
+                        tmpTextStr = "";
+                    }
+
+                    var returnStr = makeImage.makeStaticImage(size,canvas.width,canvas.height,passValue,passTextValue);
                     console.log("====returnStr======="+returnStr);
                     if(returnStr!=""){
                         mainPage.pageStack.pop();
                     }
 
                     passValue.splice(0,passValue.length);
+                    passTextValue.splice(0,passTextValue.length)
                 }
             }
             Image {
@@ -198,11 +235,53 @@ CPage {
                                parent_height: "'+parentheightTmp+'";
                                x: '+(canvas.width/2-width/2)+'
                                y: '+(canvas.height/2-height/2)+'
+                               chield_index: "'+flag+'";
                                rotation: '+rotation+'
                                chield_reversal: '+reversal+'
                            }', canvasObject);
                             childrens.push(imageObj);
                             flag ++;
+                        }
+
+                        strText = "";
+                        var j = 0;
+                        var chieldText;
+                        var textWidth = expression.width/4;
+                        var textHeight = makeStaticPicture.height/13;
+                        var reversalText = 0
+                        var rotationText = 0;
+                        for(j=0;j<text_childrens.length;j++){
+                            chieldText = text_childrens[i];
+                            if(chieldText.focus==true){
+                                strText = chieldText.chield_text
+                                textWidth = chieldText.width
+                                textHeight = chieldText.height
+                                rotationText = chieldText.rotation
+                                reversalText = chieldText.chield_reversal
+                            }
+                        }
+                        var parentheightTextTmp = makeStaticPicture.height*8/14
+                        var parentwidthTextTmp = makeStaticPicture.width
+
+                        if(strText!=""){
+                            deleteFocus();
+                            var textObj = Qt.createQmlObject(
+                            'import QtQuick 2.0;
+                               ChieldTextObject {
+                               chield_text: "'+strText+'";
+                               width: '+textWidth+';
+                               height: 65;
+                               parent_width: "'+parentwidthTextTmp+'";
+                               parent_height: "'+parentheightTextTmp+'";
+                               chield_index: "'+text_flag+'";
+                               x: '+(canvas.width/2-width/2)+'
+                               y: '+(canvas.height/2-height/2)+'
+                               rotation: '+rotationText+'
+                               chield_reversal: '+reversalText+'
+                               chield_imagetype: "1";
+                           }', canvasObject);
+                            text_childrens.push(textObj);
+                            text_flag ++;
                         }
                     }
                 }
@@ -223,6 +302,15 @@ CPage {
                             if(chieldImage.focus==true){
                                 childrens.splice(i,1);
                                 chieldImage.destroy();
+                            }
+                        }
+                        var j = 0;
+                        var chieldText;
+                        for(i=0;i<text_childrens.length;i++){
+                            chieldText = text_childrens[i];
+                            if(chieldText.focus==true){
+                                text_childrens.splice(i,1);
+                                chieldText.destroy();
                             }
                         }
                     }
@@ -331,9 +419,24 @@ CPage {
                     anchors.fill: parent
                     onClicked: {
                         console.log("========addfontImage========");
-                        gToast.requestToast("添加文字功能构建中");
+                        //gToast.requestToast("添加文字功能构建中");
+                        cInputDialog.show();
                     }
                 }
+            }
+        }
+
+        CInputDialog{
+            id:cInputDialog
+            visible: false
+            maximumLength: 15
+            onAccepted: {
+                console.log("=======cInputDialog========="+cInputDialog.text());
+                console.log("=======cInputDialog========="+cInputDialog.text().length);
+                if(cInputDialog.text().length!=0){
+                    mainItem.creatTextObj(cInputDialog.text(),cInputDialog.text().length*35,"0");
+                }
+                cInputDialog.setText("");
             }
         }
 
@@ -465,8 +568,18 @@ CPage {
                     chieldImage = childrens[i];
                     chieldImage.destroy();
                 }
+
+                var j = 0;
+                var chieldText;
+                for(j=0;j<text_childrens.length;j++){
+                    chieldText = text_childrens[j];
+                    chieldText.destroy();
+                }
+
                 passValue.splice(0,passValue.length);
+                passTextValue.splice(0,passTextValue.length);
                 childrens.splice(0,childrens.length);
+                text_childrens.splice(0,text_childrens.length);
             }
         }
 
@@ -574,6 +687,24 @@ CPage {
            }', canvasObject);
             childrens.push(imageObj);
             flag ++;
+        }
+
+        function creatTextObj(textObj,textObjwith,imageType){
+            var imageObj = Qt.createQmlObject(
+            'import QtQuick 2.0;
+               ChieldTextObject {
+               chield_text: "'+textObj+'";
+               width: '+textObjwith+';
+               height: 65;
+               parent_width: "'+canvasObject.width+'";
+               parent_height: "'+canvasObject.height+'";
+               chield_index: "'+text_flag+'";
+               chield_imagetype: "'+imageType+'";
+               x: '+(canvasObject.width/2-200)+'
+               y: '+(canvasObject.height/2-200)+'
+           }', canvasObject);
+            text_childrens.push(imageObj);
+            text_flag ++;
         }
 
         function changeModel(type){

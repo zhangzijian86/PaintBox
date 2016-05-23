@@ -105,5 +105,6 @@
         <file>res/serach/search_3.png</file>
         <file>res/serach/search_4.png</file>
         <file>res/serach/search_5.png</file>
+        <file>qml/StaticPicture/ChieldTextObject.qml</file>
     </qresource>
 </RCC>
