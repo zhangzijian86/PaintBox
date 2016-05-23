@@ -121,7 +121,7 @@ QString MakeImage::makeStaticImage(int size,int Bgwidht,int Bgheight,const QStri
     }
     QTextStream out(&file);
 
-    QPixmap *pix=new QPixmap(QSize(Bgwidht/size,Bgheight/size));
+    QPixmap *pix=new QPixmap(QSize(Bgwidht,Bgheight));
     pix->fill(Qt::white);
     QPainter paint(pix);
     paint.setRenderHint(QPainter::HighQualityAntialiasing, true);
@@ -167,22 +167,22 @@ QString MakeImage::makeStaticImage(int size,int Bgwidht,int Bgheight,const QStri
         if(reversalTmp=="0"){
             if(rotatetTmp==""){
                 qDebug()<<"==000==";
-                paint.drawPixmap(xTmp.toInt()/size,yTmp.toInt()/size,QPixmap(urlTmp).scaled(widhtTmp.toInt()/size,heightTmp.toInt()/size,Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation));
+                paint.drawPixmap(xTmp.toInt(),yTmp.toInt(),QPixmap(urlTmp).scaled(widhtTmp.toInt(),heightTmp.toInt(),Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation));
             }else{
                 qDebug()<<"==111==";
                 QMatrix leftmatrix;
                 leftmatrix.rotate(rotatetTmp.toInt());
-                paint.drawPixmap(xTmp.toInt()/size,yTmp.toInt()/size,QPixmap(urlTmp).scaled(widhtTmp.toInt()/size,heightTmp.toInt()/size,Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation).transformed(leftmatrix,Qt::SmoothTransformation));
+                paint.drawPixmap(xTmp.toInt(),yTmp.toInt(),QPixmap(urlTmp).scaled(widhtTmp.toInt(),heightTmp.toInt(),Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation).transformed(leftmatrix,Qt::SmoothTransformation));
             }
         }else if(reversalTmp=="1"){
             if(rotatetTmp==""){
                 qDebug()<<"==222==";
-                paint.drawPixmap(xTmp.toInt()/size,yTmp.toInt()/size,QPixmap::fromImage(QImage(urlTmp).mirrored(true, false)).scaled(widhtTmp.toInt()/size,heightTmp.toInt()/size,Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation));
+                paint.drawPixmap(xTmp.toInt(),yTmp.toInt(),QPixmap::fromImage(QImage(urlTmp).mirrored(true, false)).scaled(widhtTmp.toInt(),heightTmp.toInt(),Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation));
             }else{
                 qDebug()<<"==333==";
                 QMatrix leftmatrix;
                 leftmatrix.rotate(rotatetTmp.toInt());
-                paint.drawPixmap(xTmp.toInt()/size,yTmp.toInt()/size,QPixmap::fromImage(QImage(urlTmp).mirrored(true, false)).scaled(widhtTmp.toInt()/size,heightTmp.toInt()/size,Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation).transformed(leftmatrix,Qt::SmoothTransformation));
+                paint.drawPixmap(xTmp.toInt(),yTmp.toInt(),QPixmap::fromImage(QImage(urlTmp).mirrored(true, false)).scaled(widhtTmp.toInt(),heightTmp.toInt(),Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation).transformed(leftmatrix,Qt::SmoothTransformation));
             }
         }        
     }
@@ -190,6 +190,7 @@ QString MakeImage::makeStaticImage(int size,int Bgwidht,int Bgheight,const QStri
     QString returnStr = "/data/home/user/DCIM/Camera/"+nameTmp+".jpg";
     QString localSaveStr = path+"/"+nameTmp+".jpg";
     qDebug()<<"==localSaveStr=="+ localSaveStr;
+    pix->scaled(pix->width()/size,pix->height()/size,Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
     pix->save(returnStr);
     pix->save(localSaveStr);
 
@@ -222,7 +223,7 @@ QString MakeImage::makeStaticModifyImage(QString imageName,int size,int Bgwidht,
     }
     QTextStream out(&file);
 
-    QPixmap *pix=new QPixmap(QSize(Bgwidht/size,Bgheight/size));
+    QPixmap *pix=new QPixmap(QSize(Bgwidht,Bgheight));
     pix->fill(Qt::white);
     QPainter paint(pix);
     for(int i = 0; i<imgList.length();i++){
@@ -261,23 +262,23 @@ QString MakeImage::makeStaticModifyImage(QString imageName,int size,int Bgwidht,
 
         if(reversalTmp=="0"){
             if(rotatetTmp==""){
-                paint.drawPixmap(xTmp.toInt()/size,yTmp.toInt()/size,QPixmap(urlTmp).scaled(widhtTmp.toInt()/size,heightTmp.toInt()/size,Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation));
+                paint.drawPixmap(xTmp.toInt(),yTmp.toInt(),QPixmap(urlTmp).scaled(widhtTmp.toInt(),heightTmp.toInt(),Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation));
             }else{
                 QMatrix leftmatrix;
                 leftmatrix.rotate(rotatetTmp.toInt());
-                paint.drawPixmap(xTmp.toInt()/size,yTmp.toInt()/size,QPixmap(urlTmp).scaled(widhtTmp.toInt()/size,heightTmp.toInt()/size,Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation).transformed(leftmatrix,Qt::SmoothTransformation));
+                paint.drawPixmap(xTmp.toInt(),yTmp.toInt(),QPixmap(urlTmp).scaled(widhtTmp.toInt(),heightTmp.toInt(),Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation).transformed(leftmatrix,Qt::SmoothTransformation));
             }
         }else if(reversalTmp=="1"){
             if(rotatetTmp==""){
-                paint.drawPixmap(xTmp.toInt()/size,yTmp.toInt()/size,QPixmap::fromImage(QImage(urlTmp).mirrored(true, false)).scaled(widhtTmp.toInt()/size,heightTmp.toInt()/size,Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation));
+                paint.drawPixmap(xTmp.toInt(),yTmp.toInt(),QPixmap::fromImage(QImage(urlTmp).mirrored(true, false)).scaled(widhtTmp.toInt(),heightTmp.toInt(),Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation));
             }else{
                 QMatrix leftmatrix;
                 leftmatrix.rotate(rotatetTmp.toInt());
-                paint.drawPixmap(xTmp.toInt()/size,yTmp.toInt()/size,QPixmap::fromImage(QImage(urlTmp).scaled(widhtTmp.toInt()/size,heightTmp.toInt()/size,Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation).mirrored(true, false)).transformed(leftmatrix,Qt::SmoothTransformation));
+                paint.drawPixmap(xTmp.toInt(),yTmp.toInt(),QPixmap::fromImage(QImage(urlTmp).scaled(widhtTmp.toInt(),heightTmp.toInt(),Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation).mirrored(true, false)).transformed(leftmatrix,Qt::SmoothTransformation));
             }
         }
     }
-
+    pix->scaled(pix->width()/size,pix->height()/size,Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
     pix->save(returnStr);
     pix->save(localSaveStr);
 

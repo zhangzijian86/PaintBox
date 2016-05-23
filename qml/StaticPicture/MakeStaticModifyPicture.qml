@@ -187,8 +187,8 @@ CPage {
                             'import QtQuick 2.0;
                                ChieldObjectModify {
                                chield_url: "'+imageUrl+'";
-                               width: '+width+';
-                               height: '+height+';
+                               width: 200;
+                               height: 200;
                                parent_width: "'+parentwidthTmp+'";
                                parent_height: "'+parentheightTmp+'";
                                rotation: '+rotation+'
@@ -576,8 +576,8 @@ CPage {
                        chield_index: "'+returnValuesOne[0]+'";
                        x: '+xTmp+'
                        y: '+yTmp+'
-                       width: '+widthTmp+';
-                       height: '+heightTmp+';
+                       width: 200;
+                       height: 200;
                        oldType: 0;
                        parent_width: "'+parentheightTmp+'";
                        parent_height: "'+parentwidthTmp+'";
@@ -597,8 +597,8 @@ CPage {
             'import QtQuick 2.0;
                ChieldObjectModify {
                chield_url: "'+sourceObj+'";
-               width: '+widthObj+';
-               height: '+heightObj+';
+               width: 200;
+               height: 200;
                parent_width: "'+canvasObject.width+'";
                parent_height: "'+canvasObject.height+'";
                chield_index: "'+flag+'";

@@ -192,8 +192,8 @@ CPage {
                             'import QtQuick 2.0;
                                ChieldObject {
                                chield_url: "'+imageUrl+'";
-                               width: '+width+';
-                               height: '+height+';
+                               width: 200;
+                               height: 200;
                                parent_width: "'+parentwidthTmp+'";
                                parent_height: "'+parentheightTmp+'";
                                x: '+(canvas.width/2-width/2)+'
@@ -563,8 +563,8 @@ CPage {
             'import QtQuick 2.0;
                ChieldObject {
                chield_url: "'+sourceObj+'";
-               width: '+widthObj+';
-               height: '+heightObj+';
+               width: 200;
+               height: 200;
                parent_width: "'+canvasObject.width+'";
                parent_height: "'+canvasObject.height+'";
                chield_index: "'+flag+'";
