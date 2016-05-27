@@ -139,7 +139,7 @@ QString MakeImage::makeStaticImage(int size,int Bgwidht,int Bgheight,const QStri
         QString imagetypeTmp = strlTmp.at(8);
         QString typeTmp = strlTmp.at(9);
 
-        qDebug()<<"=makeStaticImage=typeTmp=="+ typeTmp;
+        qDebug()<<"=makeStaticImage=typeTmp=="<< typeTmp<<"i=:"<<i;
 
         if(imagetypeTmp=="0"){
             urlTmp = urlTmp.mid(urlTmp.lastIndexOf("/"),urlTmp.length()-1);
@@ -161,7 +161,7 @@ QString MakeImage::makeStaticImage(int size,int Bgwidht,int Bgheight,const QStri
                  qDebug()<<"拷贝失败";
             }
         }
-
+        qDebug()<<"=imgList=000=urlTmp="<<urlTmp;
         qDebug()<<"=imgList=000=size="<<size;
         qDebug()<<"=imgList=000=width="<<QPixmap(urlTmp).width();
         qDebug()<<"=imgList=000=height="<<QPixmap(urlTmp).height();

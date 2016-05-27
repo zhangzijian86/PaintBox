@@ -211,6 +211,7 @@ CPage {
                         var height = makeStaticPicture.height/13;
                         var reversal = 0
                         var rotation = 0;
+                        var imageType = "0";
                         for(i=0;i<childrens.length;i++){
                             chieldImage = childrens[i];
                             if(chieldImage.focus==true){
@@ -219,6 +220,7 @@ CPage {
                                 height = chieldImage.height
                                 rotation = chieldImage.rotation
                                 reversal = chieldImage.chield_reversal
+                                imageType = chieldImage.chield_imagetype
                             }
                         }
                         var parentheightTmp = makeStaticPicture.height*8/14
@@ -238,6 +240,7 @@ CPage {
                                chield_index: "'+flag+'";
                                rotation: '+rotation+'
                                chield_reversal: '+reversal+'
+                               chield_imagetype: "'+imageType+'";
                            }', canvasObject);
                             childrens.push(imageObj);
                             flag ++;
@@ -251,7 +254,7 @@ CPage {
                         var reversalText = 0
                         var rotationText = 0;
                         for(j=0;j<text_childrens.length;j++){
-                            chieldText = text_childrens[i];
+                            chieldText = text_childrens[j];
                             if(chieldText.focus==true){
                                 strText = chieldText.chield_text
                                 textWidth = chieldText.width
